@@ -1,0 +1,33 @@
+{
+  "voice": "kokoro:af_heart",
+  "rate": 158,
+  "lines": {
+    "s2a": "A course says everything three times. On the board. In the textbook. On a slide.",
+    "s2b": "Ask a chatbot, and it answers from somewhere else.",
+    "s3a": "Pramana. Sanskrit for proof.",
+    "s3b": "A study companion that can only say what your course says, and shows you exactly where.",
+    "s4a": "Ask it anything about your course.",
+    "s4b": "Every sentence of the answer carries a number.",
+    "s4c": "One opens the textbook, at the page, with the passage outlined.",
+    "s4d": "Another opens the lecture, at the second it was said.",
+    "s4e": "The answer, and its proof.",
+    "s5a": "Getting there takes more than reading text. This textbook's file has no equations in its text. They are drawings.",
+    "s5b": "So Pramana reads every page, every slide, and the board itself, with a vision model.",
+    "s5c": "Nine hundred and sixty-one citable pieces of one course. Almost two thirds of them unreadable without vision.",
+    "s6a": "Ask what the course does not cover, and it tells you so.",
+    "s6b": "Even when the question sounds like physics.",
+    "s7a": "Then it turns the course into questions, each one checked by a second model, and by arithmetic.",
+    "s7b": "A wrong answer is read, not just marked: the misconception, and the page.",
+    "s7c": "Behind it, a model of what you know: nineteen concepts, linked by what depends on what.",
+    "s7d": "Every estimate explains itself.",
+    "s7e": "And your week is planned around what you are about to forget.",
+    "s7f": "And when a concept needs teaching, it cuts you a lesson: a short film on your weakest concept, made only from your own course.",
+    "s8a": "We measured it.",
+    "s8b": "Thirty-nine questions whose source we know. The right page, slide, or second is in the top three, eighty-seven percent of the time.",
+    "s8r": "RAGAS scores the answers themselves: faithfulness, answer relevancy, and context precision.",
+    "s8c": "Take vision away, and a quarter of what the answers need is gone.",
+    "s8d": "With simulated students, adaptive practice beats random questions, and beats plain syllabus order for novices and for students with gaps. Fast learners still do better with the syllabus. That is in the report too.",
+    "s8e": "Every number in this film is in the repository, with the command that reproduces it.",
+    "s9a": "Every answer shows its proof."
+  }
+}

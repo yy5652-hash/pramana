@@ -1,0 +1,11 @@
+*.pyc
+.DS_Store
+.claude/
+.env
+.venv/
+__pycache__/
+data/kb/
+data/models/
+data/raw/
+data/tts_cache/
+data/work/

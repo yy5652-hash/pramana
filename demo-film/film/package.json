@@ -1,0 +1,22 @@
+{
+  "name": "pramana-film",
+  "version": "1.0.0",
+  "private": true,
+  "description": "The Pramana demo film. Remotion project scaffold and shot grammar adapted from Vincentwei1021/video-shotcraft (Apache-2.0).",
+  "scripts": {
+    "studio": "remotion studio src/index.ts",
+    "render": "remotion render src/index.ts Film out/pramana-film.mp4",
+    "still": "remotion still src/index.ts Film"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.484",
+    "katex": "0.16.11",
+    "react": "19.2.7",
+    "react-dom": "19.2.7",
+    "remotion": "4.0.484"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.17",
+    "typescript": "6.0.3"
+  }
+}

@@ -1,0 +1,19 @@
+{
+ "drafted": {
+  "in_material": 35,
+  "off_material": 14
+ },
+ "dropped": {
+  "in-06": "the reference restated the question instead of answering it",
+  "in-28": "the question only makes sense inside its lecture ('the previous result for the car')"
+ },
+ "final": {
+  "in_material": 39,
+  "off_material": 14
+ },
+ "added_directly": {
+  "count": 6,
+  "why": "the drafting model marked all but one sampled figure passage unusable, leaving the figure stratum with a single question"
+ },
+ "reviewer": "Claude Code (AI coding assistant); no human review"
+}

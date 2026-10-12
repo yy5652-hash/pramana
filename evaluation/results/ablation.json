@@ -1,0 +1,328 @@
+{
+ "metric": "RAGAS context recall",
+ "n_questions": 39,
+ "contexts_per_question": 4,
+ "judge_models": [
+  "gemini-3.1-flash-lite"
+ ],
+ "full": {
+  "mean": 1.0,
+  "ci95": 0.0,
+  "n": 39
+ },
+ "no_vision": {
+  "mean": 0.7692,
+  "ci95": 0.129,
+  "n": 39
+ },
+ "by_stratum": {
+  "lecture-board": {
+   "full": {
+    "mean": 1.0,
+    "ci95": 0.0,
+    "n": 5
+   },
+   "no_vision": {
+    "mean": 0.7,
+    "ci95": 0.392,
+    "n": 5
+   }
+  },
+  "lecture-speech": {
+   "full": {
+    "mean": 1.0,
+    "ci95": 0.0,
+    "n": 5
+   },
+   "no_vision": {
+    "mean": 1.0,
+    "ci95": 0.0,
+    "n": 5
+   }
+  },
+  "slide": {
+   "full": {
+    "mean": 1.0,
+    "ci95": 0.0,
+    "n": 8
+   },
+   "no_vision": {
+    "mean": 1.0,
+    "ci95": 0.0,
+    "n": 8
+   }
+  },
+  "textbook-figure": {
+   "full": {
+    "mean": 1.0,
+    "ci95": 0.0,
+    "n": 7
+   },
+   "no_vision": {
+    "mean": 0.5,
+    "ci95": 0.3704,
+    "n": 7
+   }
+  },
+  "textbook-maths": {
+   "full": {
+    "mean": 1.0,
+    "ci95": 0.0,
+    "n": 9
+   },
+   "no_vision": {
+    "mean": 0.5556,
+    "ci95": 0.3443,
+    "n": 9
+   }
+  },
+  "textbook-prose": {
+   "full": {
+    "mean": 1.0,
+    "ci95": 0.0,
+    "n": 5
+   },
+   "no_vision": {
+    "mean": 1.0,
+    "ci95": 0.0,
+    "n": 5
+   }
+  }
+ },
+ "per_question": [
+  {
+   "id": "in-01",
+   "stratum": "textbook-prose",
+   "full": 1.0,
+   "no_vision": 1.0
+  },
+  {
+   "id": "in-02",
+   "stratum": "textbook-prose",
+   "full": 1.0,
+   "no_vision": 1.0
+  },
+  {
+   "id": "in-03",
+   "stratum": "textbook-prose",
+   "full": 1.0,
+   "no_vision": 1.0
+  },
+  {
+   "id": "in-04",
+   "stratum": "textbook-prose",
+   "full": 1.0,
+   "no_vision": 1.0
+  },
+  {
+   "id": "in-05",
+   "stratum": "textbook-prose",
+   "full": 1.0,
+   "no_vision": 1.0
+  },
+  {
+   "id": "in-07",
+   "stratum": "textbook-maths",
+   "full": 1.0,
+   "no_vision": 1.0
+  },
+  {
+   "id": "in-08",
+   "stratum": "textbook-maths",
+   "full": 1.0,
+   "no_vision": 1.0
+  },
+  {
+   "id": "in-09",
+   "stratum": "textbook-maths",
+   "full": 1.0,
+   "no_vision": 0.0
+  },
+  {
+   "id": "in-10",
+   "stratum": "textbook-maths",
+   "full": 1.0,
+   "no_vision": 0.0
+  },
+  {
+   "id": "in-11",
+   "stratum": "textbook-maths",
+   "full": 1.0,
+   "no_vision": 1.0
+  },
+  {
+   "id": "in-12",
+   "stratum": "textbook-maths",
+   "full": 1.0,
+   "no_vision": 0.0
+  },
+  {
+   "id": "in-13",
+   "stratum": "textbook-maths",
+   "full": 1.0,
+   "no_vision": 0.0
+  },
+  {
+   "id": "in-14",
+   "stratum": "textbook-maths",
+   "full": 1.0,
+   "no_vision": 1.0
+  },
+  {
+   "id": "in-15",
+   "stratum": "textbook-maths",
+   "full": 1.0,
+   "no_vision": 1.0
+  },
+  {
+   "id": "in-16",
+   "stratum": "textbook-figure",
+   "full": 1.0,
+   "no_vision": 0.5
+  },
+  {
+   "id": "in-17",
+   "stratum": "slide",
+   "full": 1.0,
+   "no_vision": 1.0
+  },
+  {
+   "id": "in-18",
+   "stratum": "slide",
+   "full": 1.0,
+   "no_vision": 1.0
+  },
+  {
+   "id": "in-19",
+   "stratum": "slide",
+   "full": 1.0,
+   "no_vision": 1.0
+  },
+  {
+   "id": "in-20",
+   "stratum": "slide",
+   "full": 1.0,
+   "no_vision": 1.0
+  },
+  {
+   "id": "in-21",
+   "stratum": "slide",
+   "full": 1.0,
+   "no_vision": 1.0
+  },
+  {
+   "id": "in-22",
+   "stratum": "slide",
+   "full": 1.0,
+   "no_vision": 1.0
+  },
+  {
+   "id": "in-23",
+   "stratum": "slide",
+   "full": 1.0,
+   "no_vision": 1.0
+  },
+  {
+   "id": "in-24",
+   "stratum": "slide",
+   "full": 1.0,
+   "no_vision": 1.0
+  },
+  {
+   "id": "in-25",
+   "stratum": "lecture-speech",
+   "full": 1.0,
+   "no_vision": 1.0
+  },
+  {
+   "id": "in-26",
+   "stratum": "lecture-speech",
+   "full": 1.0,
+   "no_vision": 1.0
+  },
+  {
+   "id": "in-27",
+   "stratum": "lecture-speech",
+   "full": 1.0,
+   "no_vision": 1.0
+  },
+  {
+   "id": "in-29",
+   "stratum": "lecture-speech",
+   "full": 1.0,
+   "no_vision": 1.0
+  },
+  {
+   "id": "in-30",
+   "stratum": "lecture-speech",
+   "full": 1.0,
+   "no_vision": 1.0
+  },
+  {
+   "id": "in-31",
+   "stratum": "lecture-board",
+   "full": 1.0,
+   "no_vision": 0.5
+  },
+  {
+   "id": "in-32",
+   "stratum": "lecture-board",
+   "full": 1.0,
+   "no_vision": 1.0
+  },
+  {
+   "id": "in-33",
+   "stratum": "lecture-board",
+   "full": 1.0,
+   "no_vision": 1.0
+  },
+  {
+   "id": "in-34",
+   "stratum": "lecture-board",
+   "full": 1.0,
+   "no_vision": 1.0
+  },
+  {
+   "id": "in-35",
+   "stratum": "lecture-board",
+   "full": 1.0,
+   "no_vision": 0.0
+  },
+  {
+   "id": "in-36",
+   "stratum": "textbook-figure",
+   "full": 1.0,
+   "no_vision": 0.0
+  },
+  {
+   "id": "in-37",
+   "stratum": "textbook-figure",
+   "full": 1.0,
+   "no_vision": 0.0
+  },
+  {
+   "id": "in-38",
+   "stratum": "textbook-figure",
+   "full": 1.0,
+   "no_vision": 1.0
+  },
+  {
+   "id": "in-39",
+   "stratum": "textbook-figure",
+   "full": 1.0,
+   "no_vision": 0.0
+  },
+  {
+   "id": "in-40",
+   "stratum": "textbook-figure",
+   "full": 1.0,
+   "no_vision": 1.0
+  },
+  {
+   "id": "in-41",
+   "stratum": "textbook-figure",
+   "full": 1.0,
+   "no_vision": 1.0
+  }
+ ]
+}

@@ -1,0 +1,31 @@
+TITLE
+Pramana: a tutor that can only say what your course says | Multimodal AI Hackathon 2026, Track D
+
+DESCRIPTION
+Pramana (Sanskrit: proof) reads a course's textbook, slide decks and lecture videos, then tutors, tests and teaches a student from that material alone. Every sentence of an answer carries a number that opens the textbook page with the passage outlined, the slide, or the lecture at the second it was said. If the course does not cover a question, it says so.
+
+In this film
+0:00  A lecture, and what the product reads from the board
+0:18  A course says everything three times
+0:35  Pramana
+0:49  A question, an answer, and its proof: the page and the second of the lecture
+1:30  Why it reads with vision: a textbook whose file has no formulas in it
+2:01  Questions the course does not cover
+2:19  Checked questions, misconceptions, and a model of what you know
+2:53  Lessons: a short film on your weakest concept, cut from your own course
+3:10  Measured, not claimed
+3:54  Every answer shows its proof
+
+Code, evaluation and results: https://github.com/yy5652-hash/pramana
+Built for Track D (Personalized Tutoring & Adaptive Learning) of the Multimodal AI Hackathon 2026.
+
+Every picture in this film is real: lecture footage from the course, screen recordings of the running app, pages and slides of the course files, and charts drawn from the evaluation's result files. No image or video generation model was used. Narration: Kokoro-82M (text to speech). The film and the product were written with Claude Code.
+
+Credits
+Lecture footage: MIT OpenCourseWare, 8.01SC Classical Mechanics, Fall 2016 (CC BY-NC-SA 4.0).
+Textbook: OpenStax, University Physics Volume 1 (CC BY-NC-SA 4.0). Access for free at https://openstax.org/details/books/university-physics-volume-1
+Slides: Collin College Physics Department, PHYS 2425 Lecture Slides (CC BY 4.0).
+This film is released under CC BY-NC-SA 4.0.
+
+SETTINGS
+Visibility: Unlisted. Audience: not made for kids. Language: English. Subtitles: upload pramana-film.srt (English).
