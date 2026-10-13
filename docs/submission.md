@@ -22,9 +22,9 @@ one the learner model says you most need or one you pick, Pramana writes, voices
 narrated lesson film of about two minutes on your own laptop. The film is built only from
 your course: the textbook page with the passage outlined and the quoted words lit, the slide,
 the lecture in your lecturer's own voice. It teaches the idea, walks through the textbook's
-own worked example step by step, takes up the answer you got wrong, says what to keep and
-ends on a checked question. No generated imagery, no stock footage, and every scene opens
-its source. It made one for each of the 19 concepts of the sample course; the demo video
+own worked example step by step, takes up a mistake (your own wrong answer, once you have
+made one), says what to keep and ends on a checked question. No generated imagery, no stock
+footage, and every scene opens its source. It made one for each of the 19 concepts of the sample course; the demo video
 shows one being made at 2:59, in the first, shorter version of lessons.
 
 ## Inspiration
