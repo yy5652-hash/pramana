@@ -4,8 +4,8 @@
 
 **Give it a concept and it makes the teaching video.** For any concept of the course, the one
 the learner model says a student most needs or one they pick, Pramana writes, voices and cuts
-a narrated lesson film of about two minutes on the laptop, from the course's own textbook
-pages, slides and lecture clips. The film teaches the idea, walks through the textbook's own
+a narrated lesson film of about two minutes, on the laptop, in about half a minute, from the
+course's own textbook pages, slides and lecture clips. The film teaches the idea, walks through the textbook's own
 worked example step by step, takes up a mistake (the student's own wrong answer, once they
 have made one), says what to keep and ends on a checked question. No generated imagery; every
 scene opens its source.
@@ -105,7 +105,7 @@ commands with your course id.
   to Hindi or Hinglish. Tick *Allow outside knowledge* to also get a labelled answer for
   things the course does not cover. Answer the check question and watch your mastery move.
 - **Lessons.** *Cut this lesson* makes a film of about two minutes on the concept you most
-  need, from your own course, in about two minutes: the idea, the rule, a worked example from the
+  need, from your own course, in about half a minute: the idea, the rule, a worked example from the
   textbook, a mistake (your own, once you have answered something wrongly in Practice), what
   to keep, and one question. Beside the player, every scene lists the source it shows.
 - **Practice.** Start with the diagnostic if you are new. Quizzes pick each next question
@@ -145,7 +145,7 @@ More in [architecture.md](docs/architecture.md).
 
 ```bash
 make eval      # retrieval, vision ablation, grounding, RAGAS, simulated students, report
-make test      # 56 unit tests: learner model, selection, grading, scheduling, parsing helpers, lessons
+make test      # 57 unit tests: learner model, selection, grading, scheduling, parsing helpers, lessons
 ```
 
 The method is written up in [evaluation.md](docs/evaluation.md). Every result, with the

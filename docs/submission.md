@@ -19,8 +19,8 @@ vanilla JavaScript, Remotion, Claude Code
 
 **Give it a concept and it makes the teaching video.** For any concept of the course, the
 one the learner model says you most need or one you pick, Pramana writes, voices and cuts a
-narrated lesson film of about two minutes on your own laptop. The film is built only from
-your course: the textbook page with the passage outlined and the quoted words lit, the slide,
+narrated lesson film of about two minutes, on your own laptop, in about half a minute. The
+film is built only from your course: the textbook page with the passage outlined and the quoted words lit, the slide,
 the lecture in your lecturer's own voice. It teaches the idea, walks through the textbook's
 own worked example step by step, takes up a mistake (your own wrong answer, once you have
 made one), says what to keep and ends on a checked question. No generated imagery, no stock
@@ -52,8 +52,8 @@ then tutors and tests a student from that material alone.
   worked example, one step at a time; a mistake, which is your own wrong answer from
   Practice once you have made one; up to three points to keep; and one checked question you
   have not met. One model call writes the storyboard; code keeps only what it can tie to a
-  source; the narration is voiced locally; the film is drawn and encoded on your machine. It
-  opens with the prerequisite if yours is shaky and follows your level on the concept.
+  source; the narration is voiced locally; the film is drawn and encoded on your machine, about
+  half a minute in all. It opens with the prerequisite if yours is shaky and follows your level on the concept.
 - **It declines.** If the material does not cover a question, it says so and points to the
   nearest thing the course does cover. Outside knowledge appears only if the student asks
   for it, in a separate labelled block.

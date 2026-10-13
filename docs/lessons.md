@@ -11,8 +11,8 @@ pramana lesson mechanics --student Asha            # the concept the learner mod
 pramana lesson mechanics --concept friction-forces
 ```
 
-or the **Lessons** page of the app. A lesson takes about two minutes to make
-on a laptop, about as long as it runs; the result is an ordinary MP4 (1280×720, H.264 + AAC) that can be downloaded.
+or the **Lessons** page of the app. A lesson takes about half a minute to make
+on a laptop; the result is an ordinary MP4 (1280×720, H.264 + AAC) that can be downloaded.
 
 ## The arc of a lesson
 

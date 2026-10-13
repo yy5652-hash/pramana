@@ -8,6 +8,8 @@ from __future__ import annotations
 
 import hashlib
 import re
+import shutil
+import tempfile
 import threading
 import wave
 from pathlib import Path
@@ -21,6 +23,7 @@ SR = 24000                      # Kokoro's sample rate
 RELEASE = "https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/"
 FILES = ("kokoro-v1.0.int8.onnx", "voices-v1.0.bin")
 VOICES = {"en": ("af_heart", "en-us")}
+ESPEAK_PATH = 140               # espeak-ng keeps the path of its data in a buffer of 160 characters
 
 _engine = None
 _lock = threading.Lock()
@@ -37,6 +40,35 @@ def available() -> bool:
     except ImportError:
         return False
     return True
+
+
+def _espeak():
+    """Where the phonemiser finds its data, when the usual place will not do.
+
+    espeak-ng holds that path in a fixed buffer and, given a longer one, looks instead where it
+    was built, on someone else's machine. So for an install deep in the file system the data
+    is copied once to a short path in the temporary directory. A link would not do: the
+    phonemiser resolves it back to the long path."""
+    import espeakng_loader
+    from kokoro_onnx import EspeakConfig
+
+    data = espeakng_loader.get_data_path()
+    if len(data) < ESPEAK_PATH:
+        return None
+    name = "pramana-espeak-" + hashlib.sha1(data.encode()).hexdigest()[:10]
+    for place in (Path(tempfile.gettempdir()), Path("/tmp"), Path.home()):
+        if not place.is_dir():
+            continue
+        copy = place.resolve() / name
+        if len(str(copy)) >= ESPEAK_PATH:
+            continue
+        try:
+            if not (copy / "phontab").exists():
+                shutil.copytree(data, copy, dirs_exist_ok=True)
+        except OSError:
+            continue
+        return EspeakConfig(data_path=str(copy))
+    return None
 
 
 def _load(progress: Callable[[str], None]):
@@ -59,7 +91,7 @@ def _load(progress: Callable[[str], None]):
                             for block in response.iter_bytes(1 << 20):
                                 handle.write(block)
                     partial.rename(path)
-            _engine = Kokoro(str(target / FILES[0]), str(target / FILES[1]))
+            _engine = Kokoro(str(target / FILES[0]), str(target / FILES[1]), espeak_config=_espeak())
         return _engine
 
 

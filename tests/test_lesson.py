@@ -2,7 +2,11 @@
 that the film really is cut. No language model and no voice are involved."""
 from __future__ import annotations
 
+import shutil
+from pathlib import Path
+
 import numpy as np
+import pytest
 
 from pramana.lesson import build, render, script, voice
 
@@ -76,6 +80,26 @@ def test_captions_cover_the_line_and_stay_inside_it():
 
 def test_the_narrator_is_given_words_not_markup():
     assert voice.spoken("The law is $F = ma$, so **force** ≥ 0.") == "The law is F equals ma, so force at least 0."
+
+
+def test_the_narrator_is_reached_through_a_short_path_when_the_install_is_deep(tmp_path, monkeypatch):
+    loader = pytest.importorskip("espeakng_loader")
+    pytest.importorskip("kokoro_onnx")
+    near = tmp_path / "data"
+    near.mkdir()
+    monkeypatch.setattr(loader, "get_data_path", lambda: str(near)[:voice.ESPEAK_PATH - 1])
+    assert voice._espeak() is None
+    deep = tmp_path / ("deep-" * 30) / "espeak-ng-data"
+    deep.mkdir(parents=True)
+    (deep / "phontab").write_text("x")
+    monkeypatch.setattr(loader, "get_data_path", lambda: str(deep))
+    config = voice._espeak()
+    try:
+        assert len(config.data_path) < voice.ESPEAK_PATH
+        assert Path(config.data_path).resolve() == Path(config.data_path)       # a copy, not a link back to the deep place
+        assert (Path(config.data_path) / "phontab").read_text() == "x"
+    finally:
+        shutil.rmtree(config.data_path)
 
 
 def test_a_film_is_cut_with_picture_and_sound(tmp_path):
