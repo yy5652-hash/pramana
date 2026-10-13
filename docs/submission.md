@@ -1,7 +1,6 @@
 # Devpost submission text
 
-Copy for the project page. Numbers marked with ‹› are filled from `docs/results.md` at
-submission time.
+Copy for the project page. Every number is from `docs/results.md`.
 
 **Name:** Pramana
 
@@ -9,7 +8,7 @@ submission time.
 
 **Track:** D: Personalized Tutoring & Adaptive Learning
 
-**Links:** repository `https://github.com/yy5652-hash/pramana` · video ‹YouTube URL›
+**Links:** repository `https://github.com/yy5652-hash/pramana` · video https://youtu.be/QAoypTGtbyU
 
 **Built with:** Python, FastAPI, SQLite, NumPy, pypdfium2, python-pptx, faster-whisper,
 fastembed (bge-small-en-v1.5, ms-marco-MiniLM), PyAV, Pillow, Gemini API (gemini-3.5-flash-lite,
