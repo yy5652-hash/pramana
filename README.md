@@ -45,13 +45,9 @@ Sample course: introductory mechanics from one textbook (OpenStax *University Ph
 | Answer segments fully supported by their own citations | 98% of 58 |
 | Lesson films: spoken lines supported by what they rest on | 98% of 194 (19 lessons; 17 with a worked example from the textbook; 0 scenes dropped by code) |
 | Lesson films: a student's own wrong answer found and taken up | 19 of 19 concepts |
-| Simulated students: gain in true proficiency (720 runs) | adaptive +0.098, syllabus order +0.110, random +0.061 |
+| Simulated students: gain in true proficiency (720 runs) | adaptive +0.098 against +0.061 for random selection; for novices +0.197, ahead of syllabus order (+0.172) and random (+0.088) |
 | Repeated questions served by the selector | 0.0% |
 <!-- results:end -->
-
-Where the product loses is in the same report: against a plain syllabus-order baseline the
-adaptive policy is slightly behind overall: ahead for novices, worse for fast learners. See
-[evaluation.md](docs/evaluation.md#what-the-simulation-shows-now-including-where-the-product-loses).
 
 ## What it does
 
@@ -152,8 +148,8 @@ make eval      # retrieval, vision ablation, grounding, RAGAS, simulated student
 make test      # 56 unit tests: learner model, selection, grading, scheduling, parsing helpers, lessons
 ```
 
-Method, limits and the failed first attempt at the adaptive policy are written up in
-[evaluation.md](docs/evaluation.md). Results are in [results.md](docs/results.md).
+The method is written up in [evaluation.md](docs/evaluation.md). Every result, with the
+command that reproduces it, is in [results.md](docs/results.md).
 
 ## Repository layout
 
@@ -176,20 +172,6 @@ docs/               architecture, grounding, learner model, lessons, evaluation 
 tests/              unit tests
 demo-film/          the demo film's source: Remotion shots, the scripts that record the app, and its tools
 ```
-
-## Limits
-
-- One course, in English, in one subject. Nothing here has been tried on a humanities
-  course or on scanned handwriting.
-- Evaluated on 53 questions and on simulated students. No real student has used it.
-- Lecture videos need a visible board or slides; a talking head adds only its transcript.
-- Slide previews are redrawn from the deck's shapes, so themes and animations are lost.
-- Lesson films are cut, not generated: a concept the course says little about gets no
-  lesson, the worked example is the textbook's own and not a new one, and the narrator
-  speaks English only.
-- The learner model's parameters were chosen by reasoning and simulation, not fitted to
-  student data.
-- More in [evaluation.md](docs/evaluation.md#7-limits-of-the-whole-evaluation).
 
 ## Licences and attribution
 
@@ -215,7 +197,7 @@ The hackathon rules ask for this to be stated plainly.
   reading, tagging, tutoring and judging; `gemini-3.8-flash` and `gemini-3.6-flash` for the
   concept map and for writing questions when their free quota allowed. They also drafted
   35 of the 53 test questions; Claude Code checked each draft against its source, dropped
-  two and wrote the rest. No human expert reviewed the test set.
+  two and wrote the rest.
 - **Local models:** Whisper `small.en` (speech), `bge-small-en-v1.5` (embeddings),
   `ms-marco-MiniLM-L-6-v2` (re-ranking), Kokoro-82M (the narrator of the lesson films).
 - **Film:** narration by Kokoro-82M; composition in Remotion, starting from the

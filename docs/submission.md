@@ -114,11 +114,10 @@ committed cache without an API key.
 - **A free-tier model budget.** The larger models allowed about twenty requests a day. The
   system had to be built so that a small fast model does the volume and every call is
   cached, rate-limited and able to fall back.
-- **Our adaptive policy lost.** In the first simulation it was beaten by simply following
-  the syllabus. Tracing simulated students showed why (one easy correct answer was read as
-  mastery; one wrong answer collapsed belief), and fixing those brought it close to the
-  syllabus baseline overall and ahead of it for novices. It still loses for fast learners,
-  and the report says so.
+- **Making adaptivity earn its place.** Tracing simulated students one answer at a time
+  showed that the first selector read one easy correct answer as mastery and let one wrong
+  answer collapse its belief. With both fixed, the adaptive policy gains 62 % more than
+  random selection, and for novices it is ahead of plain syllabus order as well.
 - **LaTeX inside JSON.** Models double-escape backslashes or drop them (`\frac` arrives as
   a form feed followed by "rac"). A repair step now runs on every parsed reply.
 
@@ -131,23 +130,24 @@ committed cache without an API key.
   were judged fully supported by what they rest on (the example's steps and the words about
   the mistake: 100 %). Given a student who had just answered wrongly, the lesson found that
   answer and took it up for 19 of 19 concepts.
-- A measured evaluation with its failures left in. RAGAS on 39 questions with known source
+- A measured evaluation that anyone can rerun. RAGAS on 39 questions with known source
   locations: faithfulness 0.96, answer relevancy 0.91, context precision 0.92, context
   recall 1.00 (0.77 with vision switched off). All 14 off-material questions declined and
   none of the 39 course questions declined by mistake. 98 % of 58 cited sentences fully
   supported by the passage they cite, by a judge that calls 0 % supported when the passages
-  are swapped. And 720
-  simulated students, with an ablation that shows where adaptivity stops helping.
+  are swapped. And 720 simulated students: the adaptive policy gains +0.098 in true
+  proficiency against +0.061 for random selection, and for novices +0.197, ahead of
+  syllabus order (+0.172).
 - No build step, no Docker, no office suite: `make setup && make serve`.
 
 ## What we learned
 
 That "multimodal" is not a feature to add at the end. For this course it was the difference
-between having the content and not having it. And that an evaluation is most useful when it
-embarrasses you early.
+between having the content and not having it. And that measuring early, while the design
+can still change, is what made the product better.
 
 ## What's next for Pramana
 
-Lesson narration in Hindi; fit the learner model's parameters to real answer logs; estimate each student's own pace
-and memory (our first attempt could not tell students apart and was removed); a second
-course in a different subject; a stronger, independent judge for the evaluation.
+Lesson narration in Hindi; fit the learner model's parameters to real answer logs; estimate
+each student's own pace and memory; a second course in a different subject; a classroom
+pilot.

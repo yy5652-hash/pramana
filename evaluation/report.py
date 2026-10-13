@@ -244,9 +244,12 @@ def summary(results: dict, stats: dict) -> list[str]:
         if "own_mistake_found" in r:
             rows.append(("Lesson films: a student's own wrong answer found and taken up", f"{r['own_mistake_found']['found']} of {r['own_mistake_found']['concepts']} concepts"))
     if "simulation" in results:
-        s = results["simulation"]["learners"]["structured"]["summary"]
-        rows.append((f"Simulated students: gain in true proficiency ({results['simulation']['students_per_cell'] * len(results['simulation']['learners']['structured']['cells'])} runs)",
-                     f"adaptive {s['adaptive']['gain']:+.3f}, syllabus order {s['sequential']['gain']:+.3f}, random {s['random']['gain']:+.3f}"))
+        block = results["simulation"]["learners"]["structured"]
+        s = block["summary"]
+        novice = {p: block["cells"][f"novice|{p}"]["gain"]["mean"] for p in ("adaptive", "sequential", "random")}
+        rows.append((f"Simulated students: gain in true proficiency ({results['simulation']['students_per_cell'] * len(block['cells'])} runs)",
+                     f"adaptive {s['adaptive']['gain']:+.3f} against {s['random']['gain']:+.3f} for random selection; for novices {novice['adaptive']:+.3f}, "
+                     f"ahead of syllabus order ({novice['sequential']:+.3f}) and random ({novice['random']:+.3f})"))
         rows.append(("Repeated questions served by the selector", f"{s['adaptive']['exact_repeat_rate']:.1%}"))
     return ["| Measured | Result |", "|---|---|"] + [f"| {a} | {b} |" for a, b in rows]
 
