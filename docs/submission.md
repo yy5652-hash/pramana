@@ -83,7 +83,7 @@ narrator says over each, the steps of the textbook's worked example, a few sente
 student's mistake, and what to keep. Code then keeps only what it can tie to a source: the
 words to be lit on a page must be in that passage word for word, the stretch of lecture to
 be heard must be found in the word-level transcript, the example's steps must follow the
-textbook's order, and a point of the recap must rest on a scene that was kept. The mistake
+textbook's order, and a point of the recap is written on the scene whose source states it. The mistake
 and the closing question come from the question bank and the student's own attempts, not
 from the model. The page is re-rendered from the PDF for a sharp close-up, the quoted words
 are located by the PDF's own character positions, formulas on the cards are set with the

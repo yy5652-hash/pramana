@@ -9,8 +9,9 @@ to remember; and it ends on a checked question the student has not seen.
 The grounding rule is the tutor's, applied to film. A scene exists only if it names one of the
 sources it was given; the words lit on a page must be found in that source; the stretch of
 lecture played in the lecturer's own voice must be found in the transcript; the steps of the
-example must follow the textbook's order; a point of the recap must rest on a scene that was
-kept. A scene that fails is dropped by code, and a lesson with too few scenes left is not made.
+example must follow the textbook's order; a point of the recap is written on the scene whose
+source states it, and is shown only if that scene was kept. A scene that fails is dropped by
+code, and a lesson with too few scenes left is not made.
 """
 from __future__ import annotations
 
@@ -44,39 +45,37 @@ The student: {advice}{prerequisite}
 Sources:
 {sources}
 {example}{mistake}
-Write the lesson as JSON with four parts.
+Write the lesson as JSON with three parts.
 
 "scenes": 4 to 5 scenes that teach the concept from the sources S1, S2, and so on.
 - "source": the source on screen, for example "S2". Use each source at most once, and different kinds of source where there are any.
 - "narration": what the narrator says over it: one or two short spoken sentences, 40 words at most. Say only what that source itself states or shows. No outside facts, no greetings, no "in this video". It will be read aloud: plain words, no symbols, no LaTeX, no markdown, and formulas said in words ("mu s times the normal force").
 - "focus": for a textbook passage, copy from the source, word for word, the 5 to 14 consecutive plain words (no formulas) that the narration rests on; they are lit on the page. For a "listen" scene, copy word for word the 10 to 30 consecutive words of the lecture that the student should hear. Otherwise "".
 - "mode": "listen" plays that stretch of the lecture in the lecturer's own voice instead of the narrator; it is allowed only on a source marked "lecture, what is said", and its narration must be "". Every other scene is "explain". If the sources include a "lecture, what is said" source, exactly one scene must be a "listen" scene: a lesson should let the student hear the lecturer once.
+- "keep": the lesson ends on three things to remember. On the three scenes or example steps that carry them, write the thing to remember: one plain spoken sentence of at most 16 words that this scene's own source states, about the concept itself, a statement a student can carry to the next problem and not the numbers of the example. On every other scene and step, "".
 Order them so that understanding builds: what it is, the rule, a picture of it, how the lecturer puts it.
 
 "example": {example_rule}
 
-"mistake": {mistake_rule}
+"mistake": {mistake_rule}"""
 
-"recap": three things to remember about the concept itself: general statements a student can carry to the next problem, not the numbers of the example. Each has "text", one plain spoken sentence of at most 16 words, and "source", the label (S2, E3, ...) of a source that one of your scenes or steps shows and that states it. Only what those sources state."""
-
-EXAMPLE_RULE = """one step for each of {labels}, in that order, to walk the student through the textbook's worked example. Each step has "source" (its label), "narration" (45 words at most, spoken, plain words, numbers and units said in words: for the problem, what is asked; for the strategy, the plan; for the solution, the decisive step and the result; for what the answer means, the point of it. Say only what that source states) and "focus" (as for a textbook passage above, or "" where the source is mostly formulas)."""
+EXAMPLE_RULE = """one step for each of {labels}, in that order, to walk the student through the textbook's worked example. Each step has "source" (its label), "narration" (45 words at most, spoken, plain words, numbers and units said in words: for the problem, what is asked; for the strategy, the plan; for the solution, the decisive step and the result; for what the answer means, the point of it. Say only what that source states), "focus" (as for a textbook passage above, or "" where the source is mostly formulas) and "keep" (as above)."""
 MISTAKE_RULE = """two or three short spoken sentences, 45 words at most, {address}: what the mistake is and what is right instead. Say only what is written in the block about the mistake. Plain words, no symbols."""
 
-STEP = {"type": "object", "properties": {"source": {"type": "string"}, "narration": {"type": "string"}, "focus": {"type": "string"}},
-        "required": ["source", "narration", "focus"]}
+STEP = {"type": "object", "properties": {"source": {"type": "string"}, "narration": {"type": "string"}, "focus": {"type": "string"}, "keep": {"type": "string"}},
+        "required": ["source", "narration", "focus", "keep"]}
 SCHEMA = {
     "type": "object",
     "properties": {
         "scenes": {"type": "array", "items": {
             "type": "object",
             "properties": {"source": {"type": "string"}, "mode": {"type": "string", "enum": ["explain", "listen"]},
-                           "narration": {"type": "string"}, "focus": {"type": "string"}},
-            "required": ["source", "mode", "narration", "focus"]}},
+                           "narration": {"type": "string"}, "focus": {"type": "string"}, "keep": {"type": "string"}},
+            "required": ["source", "mode", "narration", "focus", "keep"]}},
         "example": {"type": "array", "items": STEP},
         "mistake": {"type": "string"},
-        "recap": {"type": "array", "items": {"type": "object", "properties": {"text": {"type": "string"}, "source": {"type": "string"}}, "required": ["text", "source"]}},
     },
-    "required": ["scenes", "example", "mistake", "recap"],
+    "required": ["scenes", "example", "mistake"],
 }
 
 
@@ -300,8 +299,6 @@ def write(db: Database, index: Index, course_id: str, student_id: str, concept_i
         raise NotEnoughMaterial(f"only {len(scenes)} scenes of the draft could be tied to a source; a lesson needs three")
     steps, lost = _steps(draft.get("example", []), example)
     dropped += lost
-    labels = {f"S{sources.index(next(u for u in sources if u['id'] == scene['unit_id'])) + 1}": scene["unit_id"] for scene in scenes}
-    labels.update({f"E{[unit['id'] for _, unit in example].index(step['unit_id']) + 1}": step["unit_id"] for step in steps})
 
     # Number the sources in order of appearance and attach what the viewer opens when it clicks one.
     numbers: dict[str, int] = {}
@@ -333,13 +330,7 @@ def write(db: Database, index: Index, course_id: str, student_id: str, concept_i
             extra.append(cited({"kind": "mistake", "own": slip["own"], "unit_id": slip["unit_id"], "question_id": slip["question_id"], "narration": said, "card": {
                 "label": "FROM YOUR OWN PRACTICE" if slip["own"] else "A MISTAKE TO AVOID", "stem": slip["stem"],
                 "wrong_label": "YOU ANSWERED" if slip["own"] else "TEMPTING", "wrong": slip["wrong"], "right": slip["right"], "why": slip["why"]}}, said))
-    points = []
-    for point in draft.get("recap", [])[:4]:
-        text, label = " ".join(str(point.get("text", "")).split()), str(point.get("source", "")).strip(" []")
-        if label not in labels:
-            dropped.append(f"a point of the recap rested on {label or 'no source'}, which is not in the lesson")
-        elif text and len(text.split()) <= 24:
-            points.append({"text": text, "n": numbers[labels[label]], "unit_id": labels[label]})
+    points = _points(scenes + steps)
     if len(points) >= 2:
         extra.append({"kind": "recap", "narration": "To keep. " + " ".join(p["text"] if p["text"][-1] in ".!?" else p["text"] + "." for p in points), "points": points})
     questions = db.one("SELECT COUNT(*) AS n FROM questions WHERE concept_id = ? AND status = 'verified'", [concept_id])["n"]
@@ -376,6 +367,21 @@ def _credit(db: Database, unit: dict) -> str:
     return f"{source['title']} · {place(unit)}" + (f" · {source['licence']}" if source.get("licence") else "")
 
 
+def _points(parts: list[dict]) -> list[dict]:
+    """What to keep: the sentences the script wrote on the scenes and steps that survived, the first three.
+    Each carries the citation number of the scene it was written on, so it rests on a source the film showed."""
+    points = [{"text": part["keep"], "n": part["n"], "unit_id": part["unit_id"]} for part in parts if part.get("keep")][:3]
+    for part in parts:
+        part.pop("keep", None)
+    return points
+
+
+def _kept(draft: dict) -> str:
+    """The thing to remember that a scene carries, if it carries one of a length that fits a card."""
+    text = " ".join(str(draft.get("keep", "")).split())
+    return text if 3 <= len(text.split()) <= 24 else ""
+
+
 def _clip(narration: str, words: int) -> str:
     """A line kept to a length that can be spoken over one picture, cut at a sentence."""
     if len(narration.split()) <= words:
@@ -404,7 +410,7 @@ def _grounded(db: Database, course_id: str, drafts: list[dict], sources: list[di
             source = db.one("SELECT * FROM sources WHERE id = ?", [unit["source_id"]])
             span = build.spoken_span(transcribe(build.raw_file(course_id, source)), unit["locator"]["t_start"], unit["locator"]["t_end"], focus)
             if span:
-                scenes.append({**scene, "kind": "listen", "narration": "", "focus": focus, "t0": round(span[0], 2), "t1": round(span[1], 2)})
+                scenes.append({**scene, "kind": "listen", "narration": "", "focus": focus, "t0": round(span[0], 2), "t1": round(span[1], 2), "keep": _kept(draft)})
                 used.add(unit["id"])
                 continue
             dropped.append("the words to be heard were not found in the lecture")
@@ -414,6 +420,7 @@ def _grounded(db: Database, course_id: str, drafts: list[dict], sources: list[di
             dropped.append("a scene had nothing to say")
             continue
         scene["narration"] = _clip(narration, 60)
+        scene["keep"] = _kept(draft)
         if kind == "text" and focus and _says(unit["text"], focus):
             scene["focus"] = focus
         scene["kind"] = {"text": "read", "figure": "figure", "slide": "slide"}.get(kind, "board")
@@ -440,7 +447,8 @@ def _steps(drafts: list[dict], example: list[tuple[str, dict]]) -> tuple[list[di
         if not narration:
             dropped.append("a step of the example had nothing to say")
             continue
-        steps.append({"kind": "example", "role": role, "unit_id": unit["id"], "narration": _clip(narration, 70), "focus": focus if focus and _says(unit["text"], focus) else ""})
+        steps.append({"kind": "example", "role": role, "unit_id": unit["id"], "narration": _clip(narration, 70), "focus": focus if focus and _says(unit["text"], focus) else "",
+                      "keep": _kept(draft)})
         last = n
     if steps and ("solution" not in {s["role"] for s in steps} or len(steps) < 2):
         return [], dropped + ["the worked example was left without its solution, so it was not shown"]

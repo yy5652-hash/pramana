@@ -139,7 +139,7 @@ More in [architecture.md](docs/architecture.md).
 
 ```bash
 make eval      # retrieval, vision ablation, grounding, RAGAS, simulated students, report
-make test      # 55 unit tests: learner model, selection, grading, scheduling, parsing helpers, lessons
+make test      # 56 unit tests: learner model, selection, grading, scheduling, parsing helpers, lessons
 ```
 
 Method, limits and the failed first attempt at the adaptive policy are written up in

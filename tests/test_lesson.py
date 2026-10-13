@@ -146,6 +146,20 @@ def test_the_example_keeps_the_textbooks_order_and_needs_its_solution():
     assert steps == [] and "without its solution" in dropped[-1]
 
 
+def test_what_to_keep_rests_on_scenes_that_were_shown():
+    sources = [_unit("a", "text", "Friction is a contact force that opposes the motion or attempted motion between two systems."),
+               _unit("b", "slide", "COEFFICIENT OF FRICTION. The frictional force is proportional to the normal force.")]
+    drafts = [{"source": "S1", "mode": "explain", "narration": "Friction opposes motion between two systems.", "focus": "", "keep": "Friction opposes motion or attempted motion."},
+              {"source": "S7", "mode": "explain", "narration": "No such source.", "focus": "", "keep": "A point that rests on nothing the film shows."},
+              {"source": "S2", "mode": "explain", "narration": "Friction is proportional to the normal force.", "focus": "", "keep": "ok"}]
+    scenes, _ = script._grounded(None, "course", drafts, sources)
+    for n, scene in enumerate(scenes, 1):
+        scene["n"] = n
+    points = script._points(scenes)
+    assert points == [{"text": "Friction opposes motion or attempted motion.", "n": 1, "unit_id": "a"}]     # the dropped scene took its point with it; "ok" is no sentence
+    assert all("keep" not in scene for scene in scenes)
+
+
 def test_a_lesson_takes_up_the_students_own_mistake(db):
     from pramana.assess import session
 
