@@ -22,11 +22,7 @@ those same pages, slides and lectures.
 Built for Track D (Personalized Tutoring & Adaptive Learning) of the Multimodal AI
 Hackathon 2026.
 
-- **Demo film (4:21):** https://youtu.be/63be_42pV3k. It was recorded at the tag
-  [`demo-film`](https://github.com/yy5652-hash/pramana/tree/demo-film), with the first version
-  of lessons: a shorter film, measured then at 99 % of 77 narration lines and cut in 0:17.
-  Lessons have since gained the worked example, the mistake, the recap and the closing
-  question, and take about two minutes to make; every figure below is for the code as it is now.
+- **Demo film (4:21):** https://youtu.be/63be_42pV3k
 - **Devpost:** https://devpost.com/software/pramana-v7si9t
 - **Docs:** [architecture](docs/architecture.md) · [grounding](docs/grounding.md) · [learner model](docs/learner-model.md) · [lessons](docs/lessons.md) · [evaluation method](docs/evaluation.md) · [results](docs/results.md)
 
