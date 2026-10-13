@@ -19,11 +19,13 @@ vanilla JavaScript, Remotion, Claude Code
 
 **Give it a concept and it makes the teaching video.** For any concept of the course, the
 one the learner model says you most need or one you pick, Pramana writes, voices and cuts a
-narrated lesson film on your own laptop in under a minute. The film is built only from your
-course: the textbook page with the passage outlined and the quoted words lit, the slide, the
-lecture in your lecturer's own voice. No generated imagery, no stock footage, and every
-scene opens its source. It made one for each of the 19 concepts of the sample course; the
-demo video shows one being made at 2:59.
+narrated lesson film of about two minutes on your own laptop. The film is built only from
+your course: the textbook page with the passage outlined and the quoted words lit, the slide,
+the lecture in your lecturer's own voice. It teaches the idea, walks through the textbook's
+own worked example step by step, takes up the answer you got wrong, says what to keep and
+ends on a checked question. No generated imagery, no stock footage, and every scene opens
+its source. It made one for each of the 19 concepts of the sample course; the demo video
+shows one being made at 2:59, in the first, shorter version of lessons.
 
 ## Inspiration
 
@@ -44,12 +46,14 @@ then tutors and tests a student from that material alone.
   opens the textbook page with the passage outlined, the slide, or the lecture video at the
   second it was said.
 - **It generates a teaching video for any concept.** Choose a concept, or let the learner
-  model choose the one you are weakest on and ready for, and it produces a short narrated
-  film that teaches it: an MP4 you can play in the app or download. One model call writes
-  the storyboard; code keeps only the scenes it can tie to a source; the narration is voiced
-  locally; the film is drawn and encoded on your machine. It opens with the prerequisite if
-  yours is shaky, follows your level on the concept, and ends by sending you to checked
-  questions on it.
+  model choose the one you are weakest on and ready for, and it produces a narrated film
+  of about two minutes that teaches it: an MP4 you can play in the app or download. The film
+  has an arc: the idea and the rule on your own page, slide and lecture; the textbook's
+  worked example, one step at a time; a mistake, which is your own wrong answer from
+  Practice once you have made one; up to three points to keep; and one checked question you
+  have not met. One model call writes the storyboard; code keeps only what it can tie to a
+  source; the narration is voiced locally; the film is drawn and encoded on your machine. It
+  opens with the prerequisite if yours is shaky and follows your level on the concept.
 - **It declines.** If the material does not cover a question, it says so and points to the
   nearest thing the course does cover. Outside knowledge appears only if the student asks
   for it, in a separate labelled block.
@@ -121,9 +125,12 @@ committed cache without an API key.
 ## Accomplishments that we're proud of
 
 - A citation that opens a lecture at the second the professor writes the formula.
-- A teaching video generated from the course itself for every one of its 19 concepts, with
-  no scene dropped by the grounding check and 99 % of 77 narration lines judged fully
-  supported by the source on screen.
+- A teaching video generated from the course itself for every one of its 19 concepts. 17
+  walk through the textbook's own worked example; all 19 take up a mistake and end on a
+  checked question; no scene was dropped by the grounding check; 98 % of 194 spoken lines
+  were judged fully supported by what they rest on (the example's steps and the words about
+  the mistake: 100 %). Given a student who had just answered wrongly, the lesson found that
+  answer and took it up for 19 of 19 concepts.
 - A measured evaluation with its failures left in. RAGAS on 39 questions with known source
   locations: faithfulness 0.96, answer relevancy 0.91, context precision 0.92, context
   recall 1.00 (0.77 with vision switched off). All 14 off-material questions declined and

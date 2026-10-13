@@ -116,16 +116,29 @@ A storyboard was written for each of 19 concepts, for a new student. **19 lesson
 
 | | |
 |---|---:|
-| Scenes kept (each names a source it was given, once) | 90 |
-| Scenes dropped by code | 0 |
-| Scenes per lesson | 4.7 ± 0.2 |
-| Textbook scenes whose quoted words were found in the passage, word for word | 40 of 42 |
+| Teaching scenes kept (each names a source it was given, once) | 76 |
+| Scenes, steps or points dropped by code | 0 |
+| Teaching scenes per lesson | 4.0 ± 0.0 |
+| Lessons that walk through a worked example from the textbook | 17 of 19 (59 steps) |
+| Lessons that take up a mistake (for a new student, one the question bank marks as common) | 19 of 19 |
+| Lessons that end on a recap | 19 of 19 (53 points) |
+| Lessons that end on a checked question the student has not met | 19 of 19 |
+| Textbook scenes whose quoted words were found in the passage, word for word | 63 of 95 |
 | Lessons in which the student hears the lecturer | 13 of 19 |
-| Words of narration per lesson | 80 ± 8 |
+| Words spoken per lesson | 246 ± 19 |
+| Length of a lesson, estimated from its words and clips | 118 ± 8 s |
+| A student's own wrong answer found and taken up (one student per concept, no model involved) | 19 of 19 |
 
-Scenes by what they show: read 42, slide 22, listen 13, figure 12, board 1.
+Scenes by what they show: read 36, slide 17, listen 13, figure 10.
 
-**Is the narration supported by what is on screen?** 77 narrated lines were each read by a second model (gemini-3.1-flash-lite) next to the source they are spoken over: 99% fully supported, 0% partly, 1% unsupported. Script written by gemini-3.5-flash-lite.
+**Is what the lesson says supported by what it rests on?** 194 spoken lines were each read by a second model (gemini-3.1-flash-lite) next to their source: 98% fully supported, 2% partly, 1% unsupported. Script written by gemini-3.5-flash-lite.
+
+| Part | Lines | Fully supported | Partly | Unsupported |
+|---|---:|---:|---:|---:|
+| Steps of the worked example, against the textbook's own | 59 | 100% | 0% | 0% |
+| The words about the mistake, against the question bank's record of it | 19 | 100% | 0% | 0% |
+| Points of the recap, against the source they name | 53 | 94% | 4% | 2% |
+| Teaching scenes, against the source on screen | 63 | 98% | 2% | 0% |
 
 ## Simulated students
 

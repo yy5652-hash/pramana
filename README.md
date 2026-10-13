@@ -4,8 +4,11 @@
 
 **Give it a concept and it makes the teaching video.** For any concept of the course, the one
 the learner model says a student most needs or one they pick, Pramana writes, voices and cuts
-a narrated lesson film on the laptop in under a minute, from the course's own textbook pages,
-slides and lecture clips. No generated imagery; every scene opens its source.
+a narrated lesson film of about two minutes on the laptop, from the course's own textbook
+pages, slides and lecture clips. The film teaches the idea, walks through the textbook's own
+worked example step by step, takes up a mistake (the student's own wrong answer, once they
+have made one), says what to keep and ends on a checked question. No generated imagery; every
+scene opens its source.
 [How it works](docs/lessons.md) · `pramana lesson mechanics --concept friction-forces` · the *Lessons* page of the app · 2:59 in the demo film.
 
 *Pramāṇa* (प्रमाण) is Sanskrit for proof: the means by which something is known. Pramana
@@ -19,7 +22,11 @@ those same pages, slides and lectures.
 Built for Track D (Personalized Tutoring & Adaptive Learning) of the Multimodal AI
 Hackathon 2026.
 
-- **Demo film (4:21):** https://youtu.be/63be_42pV3k
+- **Demo film (4:21):** https://youtu.be/63be_42pV3k. It was recorded at the tag
+  [`demo-film`](https://github.com/yy5652-hash/pramana/tree/demo-film), with the first version
+  of lessons: a shorter film, measured then at 99 % of 77 narration lines and cut in 0:17.
+  Lessons have since gained the worked example, the mistake, the recap and the closing
+  question, and take about two minutes to make; every figure below is for the code as it is now.
 - **Devpost:** https://devpost.com/software/pramana-v7si9t
 - **Docs:** [architecture](docs/architecture.md) · [grounding](docs/grounding.md) · [learner model](docs/learner-model.md) · [lessons](docs/lessons.md) · [evaluation method](docs/evaluation.md) · [results](docs/results.md)
 
@@ -40,7 +47,8 @@ Sample course: introductory mechanics from one textbook (OpenStax *University Ph
 | Off-material questions declined | 14 of 14 |
 | In-material questions answered | 39 of 39 |
 | Answer segments fully supported by their own citations | 98% of 58 |
-| Lesson films: narration lines supported by the source on screen | 99% of 77 (19 lessons; 0 scenes dropped by code) |
+| Lesson films: spoken lines supported by what they rest on | 98% of 194 (19 lessons; 17 with a worked example from the textbook; 0 scenes dropped by code) |
+| Lesson films: a student's own wrong answer found and taken up | 19 of 19 concepts |
 | Simulated students: gain in true proficiency (720 runs) | adaptive +0.098, syllabus order +0.110, random +0.061 |
 | Repeated questions served by the selector | 0.0% |
 <!-- results:end -->
@@ -105,7 +113,7 @@ commands with your course id.
   to Hindi or Hinglish. Tick *Allow outside knowledge* to also get a labelled answer for
   things the course does not cover. Answer the check question and watch your mastery move.
 - **Lessons.** *Cut this lesson* makes a film of about two minutes on the concept you most
-  need, from your own course, in under a minute: the idea, the rule, a worked example from the
+  need, from your own course, in about two minutes: the idea, the rule, a worked example from the
   textbook, a mistake (your own, once you have answered something wrongly in Practice), what
   to keep, and one question. Beside the player, every scene lists the source it shows.
 - **Practice.** Start with the diagnostic if you are new. Quizzes pick each next question
