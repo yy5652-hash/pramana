@@ -13,7 +13,7 @@ pages, slides and lectures.
 Built for Track D (Personalized Tutoring & Adaptive Learning) of the Multimodal AI
 Hackathon 2026.
 
-- **Demo film (4:21):** https://youtu.be/EhtqHAJjPXc
+- **Demo film (4:21):** https://youtu.be/63be_42pV3k
 - **Devpost:** https://devpost.com/software/pramana-v7si9t
 - **Docs:** [architecture](docs/architecture.md) · [grounding](docs/grounding.md) · [learner model](docs/learner-model.md) · [lessons](docs/lessons.md) · [evaluation method](docs/evaluation.md) · [results](docs/results.md)
 
