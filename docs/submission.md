@@ -4,7 +4,7 @@ Copy for the project page. Every number is from `docs/results.md`.
 
 **Name:** Pramana
 
-**Tagline:** A study companion that can only say what your course says, and shows you exactly where.
+**Tagline:** A study companion that can only say what your course says, shows exactly where, and turns any concept into a narrated teaching video cut from your own textbook, slides and lectures.
 
 **Track:** D: Personalized Tutoring & Adaptive Learning
 
@@ -16,6 +16,14 @@ gemini-3.1-flash-lite, gemini-3.8-flash, gemini-3.6-flash), Kokoro-82M (kokoro-o
 vanilla JavaScript, Remotion, Claude Code
 
 ---
+
+**Give it a concept and it makes the teaching video.** For any concept of the course, the
+one the learner model says you most need or one you pick, Pramana writes, voices and cuts a
+narrated lesson film on your own laptop in under a minute. The film is built only from your
+course: the textbook page with the passage outlined and the quoted words lit, the slide, the
+lecture in your lecturer's own voice. No generated imagery, no stock footage, and every
+scene opens its source. It made one for each of the 19 concepts of the sample course; the
+demo video shows one being made at 2:59.
 
 ## Inspiration
 
@@ -35,15 +43,16 @@ then tutors and tests a student from that material alone.
 - **Every answer shows its proof.** Each sentence of an answer carries a number. Clicking it
   opens the textbook page with the passage outlined, the slide, or the lecture video at the
   second it was said.
+- **It generates a teaching video for any concept.** Choose a concept, or let the learner
+  model choose the one you are weakest on and ready for, and it produces a short narrated
+  film that teaches it: an MP4 you can play in the app or download. One model call writes
+  the storyboard; code keeps only the scenes it can tie to a source; the narration is voiced
+  locally; the film is drawn and encoded on your machine. It opens with the prerequisite if
+  yours is shaky, follows your level on the concept, and ends by sending you to checked
+  questions on it.
 - **It declines.** If the material does not cover a question, it says so and points to the
   nearest thing the course does cover. Outside knowledge appears only if the student asks
   for it, in a separate labelled block.
-- **It cuts you a lesson.** For the concept the learner model says you most need, it makes
-  a narrated film of about two minutes out of your own course: the textbook page with the
-  passage outlined and the quoted words lit, the slide, the lecture in your lecturer's own
-  voice, the textbook's own worked example one step at a time, your own wrong answer from
-  practice with the slip named, what to keep, and one checked question you have not met.
-  Nothing in it is generated imagery, and every scene opens its source.
 - **It tests with checked questions.** MCQ, short-answer and numerical questions are
   generated from the course and enter the bank only after arithmetic recomputes the key and
   a second model, solving blind, agrees. 228 were drafted; 21 were rejected.
@@ -112,12 +121,15 @@ committed cache without an API key.
 ## Accomplishments that we're proud of
 
 - A citation that opens a lecture at the second the professor writes the formula.
+- A teaching video generated from the course itself for every one of its 19 concepts, with
+  no scene dropped by the grounding check and 99 % of 77 narration lines judged fully
+  supported by the source on screen.
 - A measured evaluation with its failures left in. RAGAS on 39 questions with known source
   locations: faithfulness 0.96, answer relevancy 0.91, context precision 0.92, context
   recall 1.00 (0.77 with vision switched off). All 14 off-material questions declined and
   none of the 39 course questions declined by mistake. 98 % of 58 cited sentences fully
   supported by the passage they cite, by a judge that calls 0 % supported when the passages
-  are swapped. 99 % of 77 lesson narration lines supported by the source on screen. And 720
+  are swapped. And 720
   simulated students, with an ablation that shows where adaptivity stops helping.
 - No build step, no Docker, no office suite: `make setup && make serve`.
 

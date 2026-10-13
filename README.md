@@ -2,13 +2,19 @@
 
 **A study companion that can only say what your course says, and shows you exactly where.**
 
+**Give it a concept and it makes the teaching video.** For any concept of the course, the one
+the learner model says a student most needs or one they pick, Pramana writes, voices and cuts
+a narrated lesson film on the laptop in under a minute, from the course's own textbook pages,
+slides and lecture clips. No generated imagery; every scene opens its source.
+[How it works](docs/lessons.md) · `pramana lesson mechanics --concept friction-forces` · the *Lessons* page of the app · 2:59 in the demo film.
+
 *Pramāṇa* (प्रमाण) is Sanskrit for proof: the means by which something is known. Pramana
 reads a course's textbook, slide decks and lecture videos, and then tutors and tests a
 student from that material alone. Every sentence of an answer carries a number; the number
 opens the textbook page with the passage outlined, the slide, or the lecture video at the
 second it was said. When the material does not cover a question, the tutor says so. And when
-a student needs a concept taught, it cuts them a short narrated film of it from those same
-pages, slides and lectures.
+a student needs a concept taught, it generates a short narrated teaching video of it from
+those same pages, slides and lectures.
 
 Built for Track D (Personalized Tutoring & Adaptive Learning) of the Multimodal AI
 Hackathon 2026.
