@@ -2,6 +2,7 @@ import React from "react";
 import { AbsoluteFill, OffthreadVideo, Sequence, interpolate, staticFile, useCurrentFrame } from "remotion";
 import { Lower } from "../components/Lower";
 import { Clip, Cuts, cutsFrames } from "../components/Take";
+import film from "../../public/data/film.json";
 import { S7B } from "../timing";
 import { clock, color, ramp, sec } from "../theme";
 
@@ -17,6 +18,9 @@ const TAKE = cutsFrames(CLIPS);
 const MOVIE = sec(S7B.movieSeconds);
 export const S7B_FRAMES = TAKE + MOVIE + sec(0.3);
 const first = S7B.clips[0].to - S7B.clips[0].from;
+// Measured on every concept of the course, not on this one lesson (evaluation/results/lessons.json).
+const measured = (film.results as any).lessons;
+const cutIn = `CUT ON THIS LAPTOP IN ${clock(S7B.made).replace(/^0/, "")}`;
 const WINDOW = { width: 1632, height: 918 };
 
 export const S7bLesson: React.FC = () => {
@@ -37,7 +41,12 @@ export const S7bLesson: React.FC = () => {
         </AbsoluteFill>
       </Sequence>
       <Lower from={0.5} to={first - 0.2} label="YOUR NEXT LESSON" value={S7B.concept} />
-      <Lower from={first + 0.5} to={TAKE / 30 - 0.2} label={`CUT ON THIS LAPTOP IN ${clock(S7B.made).replace(/^0/, "")}`} value="every scene is a source" />
+      {measured?.narration_support?.lines_judged ? (
+        <Lower from={first + 0.5} to={TAKE / 30 - 0.2} label={`${cutIn} · EVERY SCENE IS A SOURCE`}
+          value={`${Math.round(measured.narration_support.fully_supported * 100)}% of narrated lines supported, across all ${measured.lessons_made} concepts`} />
+      ) : (
+        <Lower from={first + 0.5} to={TAKE / 30 - 0.2} label={cutIn} value="every scene is a source" />
+      )}
       <Lower top right from={TAKE / 30 + 0.7} to={(TAKE + MOVIE) / 30} label={`THE LESSON ITSELF · ${clock(S7B.lessonSeconds).replace(/^0/, "")}`} value={S7B.lecturer ? "your lecturer's own voice" : "your own textbook"} />
     </AbsoluteFill>
   );

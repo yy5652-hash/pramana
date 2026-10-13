@@ -16,6 +16,7 @@
     "s5c": "Nine hundred and sixty-one citable pieces of one course. Almost two thirds of them unreadable without vision.",
     "s6a": "Ask what the course does not cover, and it tells you so.",
     "s6b": "Even when the question sounds like physics.",
+    "s6c": "Ask in Hinglish, and it answers in Hinglish, from the same page.",
     "s7a": "Then it turns the course into questions, each one checked by a second model, and by arithmetic.",
     "s7b": "A wrong answer is read, not just marked: the misconception, and the page.",
     "s7c": "Behind it, a model of what you know: nineteen concepts, linked by what depends on what.",
@@ -26,7 +27,8 @@
     "s8b": "Thirty-nine questions whose source we know. The right page, slide, or second is in the top three, eighty-seven percent of the time.",
     "s8r": "RAGAS scores the answers themselves: faithfulness, answer relevancy, and context precision.",
     "s8c": "Take vision away, and a quarter of what the answers need is gone.",
-    "s8d": "With simulated students, adaptive practice beats random questions, and beats plain syllabus order for novices and for students with gaps. Fast learners still do better with the syllabus. That is in the report too.",
+    "s8g": "Outside the course, it declined fourteen questions of fourteen. And ninety-eight percent of its cited sentences are fully supported.",
+    "s8d": "With simulated students, adaptive practice beats random questions, and beats plain syllabus order for novices. Fast learners still do better with the syllabus. That is in the report too.",
     "s8e": "Every number in this film is in the repository, with the command that reproduces it.",
     "s9a": "Every answer shows its proof."
   }

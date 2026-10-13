@@ -97,6 +97,19 @@ export const scenes = {
     await take.wait(4200);
   },
 
+  // The same tutor, asked in Hinglish: the answer comes back in Hinglish, with the same numbers.
+  hinglish: async (take) => {
+    const id = await student(take, "Asha");
+    await take.goto("#/tutor", login(id, `localStorage.setItem("pramana.language", "hinglish");`));
+    await take.start();
+    await take.wait(1200);
+    await take.markRect("language", `document.querySelector(".tutor-bar .seg")`);
+    await ask(take, "Static aur kinetic friction mein kya farak hai?");
+    await take.wait(600);
+    await take.markRect("answer", `document.querySelector(".msg.tutor:last-child")`);
+    await take.wait(4600);
+  },
+
   // A wrong answer, read as a misconception and traced to its source.
   practice: async (take) => {
     const id = await student(take, "Asha");

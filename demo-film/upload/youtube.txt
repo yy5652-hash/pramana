@@ -6,15 +6,15 @@ Pramana (Sanskrit: proof) reads a course's textbook, slide decks and lecture vid
 
 In this film
 0:00  A lecture, and what the product reads from the board
-0:18  A course says everything three times
+0:17  A course says everything three times
 0:35  Pramana
-0:49  A question, an answer, and its proof: the page and the second of the lecture
-1:30  Why it reads with vision: a textbook whose file has no formulas in it
-2:01  Questions the course does not cover
-2:19  Checked questions, misconceptions, and a model of what you know
-2:53  Lessons: a short film on your weakest concept, cut from your own course
-3:10  Measured, not claimed
-3:54  Every answer shows its proof
+0:48  A question, an answer, and its proof: the page and the second of the lecture
+1:28  Why it reads with vision: a textbook whose file has no formulas in it
+1:59  Questions the course does not cover, and a question asked in Hinglish
+2:26  Checked questions, misconceptions, and a model of what you know
+2:59  Lessons: a short film on your weakest concept, cut from your own course
+3:14  Measured, not claimed
+4:05  Every answer shows its proof
 
 Code, evaluation and results: https://github.com/yy5652-hash/pramana
 Built for Track D (Personalized Tutoring & Adaptive Learning) of the Multimodal AI Hackathon 2026.

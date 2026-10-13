@@ -4,6 +4,7 @@
 import ask from "../public/takes/ask.json" with { type: "json" };
 import lessons from "../public/takes/lessons.json" with { type: "json" };
 import film from "../public/data/film.json" with { type: "json" };
+import hinglish from "../public/takes/hinglish.json" with { type: "json" };
 import map from "../public/takes/map.json" with { type: "json" };
 import practice from "../public/takes/practice.json" with { type: "json" };
 import progress from "../public/takes/progress.json" with { type: "json" };
@@ -32,11 +33,15 @@ const [typed1, typed2] = all(refuse, "typed");
 const [asked1, asked2] = all(refuse, "asked");
 const [answered1, answered2] = all(refuse, "answered");
 export const S6_CLIPS = [
-  { from: typed1 - 4.3, to: asked1 + 0.35 },
-  { from: answered1 + 0.2, to: answered1 + 3.3 },
-  { from: typed2 - 2.6, to: asked2 + 0.35 },
-  { from: answered2 + 0.2, to: answered2 + 4.4 },
+  { name: "refuse", from: typed1 - 4.3, to: asked1 + 0.35 },
+  { name: "refuse", from: answered1 + 0.2, to: answered1 + 3.3 },
+  { name: "refuse", from: typed2 - 2.6, to: asked2 + 0.35 },
+  { name: "refuse", from: answered2 + 0.2, to: answered2 + 4.4 },
+  // then a question the course does cover, asked in Hinglish: its last words, and the answer
+  { name: "hinglish", from: one(hinglish, "typed") - 1.3, to: one(hinglish, "answered") + 4.9 },
 ];
+/** Where the Hinglish answer sat on screen (take pixels), recorded by the take. */
+export const S6_ANSWER = (hinglish as Marks).marks.find((m) => m.label === "answer")?.rect;
 
 // ---- S7: questions, misconceptions, the learner model -------------------------------------
 // The wrong answer the film shows is the first one whose feedback names a misconception.
@@ -92,12 +97,12 @@ if (measured.ablation) {
 }
 if (measured.grounding) {
   s8cues.push({ line: "s8g", at: s8clock });
-  Object.assign(rowsAt, { declined: s8clock + 0.2, supported: s8clock + 3.6 });
-  s8clock += 8.0;
+  Object.assign(rowsAt, { declined: s8clock + 0.2, supported: s8clock + 4.3 });
+  s8clock += 8.9;
 }
 const students = s8clock + 0.3;
-s8cues.push({ line: "s8d", at: students + 0.4 }, { line: "s8e", at: students + 15.0 });
-export const S8 = { at: rowsAt, students, close: students + 15.0, seconds: students + 21.6, cues: s8cues };
+s8cues.push({ line: "s8d", at: students + 0.4 }, { line: "s8e", at: students + 13.4 });
+export const S8 = { at: rowsAt, students, close: students + 13.4, seconds: students + 20.0, cues: s8cues };
 
 const span = (clips: { from: number; to: number }[]) => clips.reduce((t, c) => t + Math.round((c.to - c.from) * FPS), 0) / FPS + 0.2;
 const starts = (clips: { from: number; to: number }[]) => clips.reduce<number[]>((acc, c, i) => [...acc, (acc[i] ?? 0) + (c.to - c.from)], [0]);
@@ -112,7 +117,7 @@ export const SHOTS: { id: string; seconds: number; cues: { line: string; at: num
     { line: "s4a", at: 0.6 }, { line: "s4b", at: S4.answered + 0.6 }, { line: "s4c", at: S4.page + 0.5 }, { line: "s4d", at: S4.video + 0.4 },
     { line: "s4e", at: S4.cut + S4.footage + 1.1 }] },
   { id: "S5", seconds: 31, cues: [{ line: "s5a", at: 0.5 }, { line: "s5b", at: 9.2 }, { line: "s5c", at: 21.0 }] },
-  { id: "S6", seconds: span(S6_CLIPS), cues: [{ line: "s6a", at: 0.5 }, { line: "s6b", at: s6[2] + 0.2 }] },
+  { id: "S6", seconds: span(S6_CLIPS), cues: [{ line: "s6a", at: 0.5 }, { line: "s6b", at: s6[2] + 0.2 }, { line: "s6c", at: s6[4] + 0.5 }] },
   { id: "S7", seconds: span(S7_CLIPS), cues: [
     { line: "s7a", at: 0.3 }, { line: "s7b", at: S7_WRONG + 1.9 }, { line: "s7c", at: s7[1] + 0.6 }, { line: "s7d", at: s7[2] + 0.5 }, { line: "s7e", at: s7[3] + 0.4 }] },
   { id: "S7b", seconds: span(S7B.clips) + S7B.movieSeconds + 0.3, cues: [{ line: "s7f", at: 0.3 }] },

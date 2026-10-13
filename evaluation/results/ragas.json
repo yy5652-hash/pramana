@@ -1,10 +1,11 @@
 {
  "framework": "ragas 0.4.3",
- "n_scored": 25,
- "n_in_material": 25,
+ "n_scored": 39,
+ "n_in_material": 39,
  "contexts_per_question": 4,
  "judge_models": [
-  "gemini-3.1-flash-lite"
+  "gemini-3.1-flash-lite",
+  "gemini-3.5-flash"
  ],
  "tutor_models": [
   "gemini-3.5-flash-lite"
@@ -12,47 +13,69 @@
  "embedding_model": "BAAI/bge-small-en-v1.5",
  "metrics": {
   "faithfulness": {
-   "mean": 0.9427,
-   "ci95": 0.064,
-   "n": 25
+   "mean": 0.9632,
+   "ci95": 0.0416,
+   "n": 39
   },
   "answer_relevancy": {
-   "mean": 0.9276,
-   "ci95": 0.024,
-   "n": 25
+   "mean": 0.9086,
+   "ci95": 0.0265,
+   "n": 39
   },
   "llm_context_precision_with_reference": {
-   "mean": 0.9222,
-   "ci95": 0.0808,
-   "n": 25
+   "mean": 0.9174,
+   "ci95": 0.0598,
+   "n": 39
   },
   "context_recall": {
    "mean": 1.0,
    "ci95": 0.0,
-   "n": 25
+   "n": 39
   }
  },
  "by_stratum": {
-  "lecture-speech": {
+  "lecture-board": {
    "faithfulness": {
     "mean": 1.0,
     "ci95": 0.0,
-    "n": 2
+    "n": 5
    },
    "answer_relevancy": {
-    "mean": 0.9304,
-    "ci95": 0.1365,
-    "n": 2
+    "mean": 0.9329,
+    "ci95": 0.0378,
+    "n": 5
    },
    "llm_context_precision_with_reference": {
-    "mean": 0.9584,
-    "ci95": 0.0816,
-    "n": 2
+    "mean": 0.8833,
+    "ci95": 0.1905,
+    "n": 5
    },
    "context_recall": {
     "mean": 1.0,
     "ci95": 0.0,
-    "n": 2
+    "n": 5
+   }
+  },
+  "lecture-speech": {
+   "faithfulness": {
+    "mean": 1.0,
+    "ci95": 0.0,
+    "n": 5
+   },
+   "answer_relevancy": {
+    "mean": 0.9113,
+    "ci95": 0.0506,
+    "n": 5
+   },
+   "llm_context_precision_with_reference": {
+    "mean": 0.9278,
+    "ci95": 0.0701,
+    "n": 5
+   },
+   "context_recall": {
+    "mean": 1.0,
+    "ci95": 0.0,
+    "n": 5
    }
   },
   "slide": {
@@ -81,22 +104,22 @@
    "faithfulness": {
     "mean": 1.0,
     "ci95": 0.0,
-    "n": 1
+    "n": 7
    },
    "answer_relevancy": {
-    "mean": 0.9433,
-    "ci95": 0.0,
-    "n": 1
+    "mean": 0.8326,
+    "ci95": 0.1047,
+    "n": 7
    },
    "llm_context_precision_with_reference": {
-    "mean": 1.0,
-    "ci95": 0.0,
-    "n": 1
+    "mean": 0.9405,
+    "ci95": 0.1167,
+    "n": 7
    },
    "context_recall": {
     "mean": 1.0,
     "ci95": 0.0,
-    "n": 1
+    "n": 7
    }
   },
   "textbook-maths": {
@@ -348,6 +371,118 @@
    "stratum": "lecture-speech",
    "faithfulness": 1.0,
    "answer_relevancy": 1.0,
+   "llm_context_precision_with_reference": 1.0,
+   "context_recall": 1.0
+  },
+  {
+   "id": "in-27",
+   "stratum": "lecture-speech",
+   "faithfulness": 1.0,
+   "answer_relevancy": 0.9344,
+   "llm_context_precision_with_reference": 0.8056,
+   "context_recall": 1.0
+  },
+  {
+   "id": "in-29",
+   "stratum": "lecture-speech",
+   "faithfulness": 1.0,
+   "answer_relevancy": 0.8965,
+   "llm_context_precision_with_reference": 0.9167,
+   "context_recall": 1.0
+  },
+  {
+   "id": "in-30",
+   "stratum": "lecture-speech",
+   "faithfulness": 1.0,
+   "answer_relevancy": 0.8647,
+   "llm_context_precision_with_reference": 1.0,
+   "context_recall": 1.0
+  },
+  {
+   "id": "in-31",
+   "stratum": "lecture-board",
+   "faithfulness": 1.0,
+   "answer_relevancy": 0.9278,
+   "llm_context_precision_with_reference": 1.0,
+   "context_recall": 1.0
+  },
+  {
+   "id": "in-32",
+   "stratum": "lecture-board",
+   "faithfulness": 1.0,
+   "answer_relevancy": 0.9414,
+   "llm_context_precision_with_reference": 0.9167,
+   "context_recall": 1.0
+  },
+  {
+   "id": "in-33",
+   "stratum": "lecture-board",
+   "faithfulness": 1.0,
+   "answer_relevancy": 0.9109,
+   "llm_context_precision_with_reference": 1.0,
+   "context_recall": 1.0
+  },
+  {
+   "id": "in-34",
+   "stratum": "lecture-board",
+   "faithfulness": 1.0,
+   "answer_relevancy": 0.8844,
+   "llm_context_precision_with_reference": 1.0,
+   "context_recall": 1.0
+  },
+  {
+   "id": "in-35",
+   "stratum": "lecture-board",
+   "faithfulness": 1.0,
+   "answer_relevancy": 1.0,
+   "llm_context_precision_with_reference": 0.5,
+   "context_recall": 1.0
+  },
+  {
+   "id": "in-36",
+   "stratum": "textbook-figure",
+   "faithfulness": 1.0,
+   "answer_relevancy": 0.9353,
+   "llm_context_precision_with_reference": 1.0,
+   "context_recall": 1.0
+  },
+  {
+   "id": "in-37",
+   "stratum": "textbook-figure",
+   "faithfulness": 1.0,
+   "answer_relevancy": 0.8732,
+   "llm_context_precision_with_reference": 0.5833,
+   "context_recall": 1.0
+  },
+  {
+   "id": "in-38",
+   "stratum": "textbook-figure",
+   "faithfulness": 1.0,
+   "answer_relevancy": 0.5748,
+   "llm_context_precision_with_reference": 1.0,
+   "context_recall": 1.0
+  },
+  {
+   "id": "in-39",
+   "stratum": "textbook-figure",
+   "faithfulness": 1.0,
+   "answer_relevancy": 0.8578,
+   "llm_context_precision_with_reference": 1.0,
+   "context_recall": 1.0
+  },
+  {
+   "id": "in-40",
+   "stratum": "textbook-figure",
+   "faithfulness": 1.0,
+   "answer_relevancy": 0.9407,
+   "llm_context_precision_with_reference": 1.0,
+   "context_recall": 1.0
+  },
+  {
+   "id": "in-41",
+   "stratum": "textbook-figure",
+   "faithfulness": 1.0,
+   "answer_relevancy": 0.7033,
    "llm_context_precision_with_reference": 1.0,
    "context_recall": 1.0
   }

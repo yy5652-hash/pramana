@@ -45,7 +45,7 @@ then tutors and tests a student from that material alone.
   voice. Nothing in it is generated imagery, and every scene opens its source.
 - **It tests with checked questions.** MCQ, short-answer and numerical questions are
   generated from the course and enter the bank only after arithmetic recomputes the key and
-  a second model, solving blind, agrees. ‹N› were drafted; ‹M› were rejected.
+  a second model, solving blind, agrees. 228 were drafted; 21 were rejected.
 - **It reads a wrong answer.** Each distractor is written with the misconception it
   catches; wrong numbers are matched against slip signatures such as a reversed sign or a
   km/h–m/s mix-up. The report traces a weak topic to the prerequisite underneath it.
@@ -63,8 +63,8 @@ drawings. The slide decks keep theirs in Office Math blocks that standard extrac
 So every page, every slide with a picture or an equation, and one frame per spoken passage
 of each lecture is read by a vision-language model, which restores the maths as LaTeX and
 describes each figure. Speech is transcribed locally with word timestamps. The result is
-‹961› citable units, each remembering its page and rectangle, its slide, or its second.
-‹64 %› of them could not have been read without vision.
+961 citable units, each remembering its page and rectangle, its slide, or its second.
+64 % of them could not have been read without vision.
 
 **Grounding by construction.** The tutor model must answer in segments that each name their
 sources. Code deletes any segment without a valid source, and an answer with no surviving
@@ -98,18 +98,22 @@ committed cache without an API key.
   cached, rate-limited and able to fall back.
 - **Our adaptive policy lost.** In the first simulation it was beaten by simply following
   the syllabus. Tracing simulated students showed why (one easy correct answer was read as
-  mastery; one wrong answer collapsed belief), and fixing those raised it to level with the
-  syllabus baseline and ahead for students with gaps. It still loses for fast learners, and
-  the report says so.
+  mastery; one wrong answer collapsed belief), and fixing those brought it close to the
+  syllabus baseline overall and ahead of it for novices. It still loses for fast learners,
+  and the report says so.
 - **LaTeX inside JSON.** Models double-escape backslashes or drop them (`\frac` arrives as
   a form feed followed by "rac"). A repair step now runs on every parsed reply.
 
 ## Accomplishments that we're proud of
 
 - A citation that opens a lecture at the second the professor writes the formula.
-- A measured evaluation with its failures left in: RAGAS on questions with known source
-  locations (‹scores›), refusal on off-material questions (‹k of 14›), and 720 simulated
-  students with an ablation that shows where adaptivity stops helping.
+- A measured evaluation with its failures left in. RAGAS on 39 questions with known source
+  locations: faithfulness 0.96, answer relevancy 0.91, context precision 0.92, context
+  recall 1.00 (0.77 with vision switched off). All 14 off-material questions declined and
+  none of the 39 course questions declined by mistake. 98 % of 58 cited sentences fully
+  supported by the passage they cite, by a judge that calls 0 % supported when the passages
+  are swapped. 99 % of 77 lesson narration lines supported by the source on screen. And 720
+  simulated students, with an ablation that shows where adaptivity stops helping.
 - No build step, no Docker, no office suite: `make setup && make serve`.
 
 ## What we learned

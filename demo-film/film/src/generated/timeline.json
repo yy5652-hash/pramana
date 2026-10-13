@@ -1,6 +1,6 @@
 {
  "fps": 30,
- "seconds": 248.5,
+ "seconds": 261.2,
  "shots": [
   {
    "id": "S1",
@@ -30,26 +30,26 @@
   {
    "id": "S6",
    "start": 119.8,
-   "seconds": 18.2
+   "seconds": 26.233333333333334
   },
   {
    "id": "S7",
-   "start": 138,
+   "start": 146.03333333333333,
    "seconds": 33.2
   },
   {
    "id": "S7b",
-   "start": 171.2,
-   "seconds": 17.7
+   "start": 179.23333333333332,
+   "seconds": 15.080000000000002
   },
   {
    "id": "S8",
-   "start": 188.9,
-   "seconds": 44.10000000000001
+   "start": 194.3,
+   "seconds": 51.400000000000006
   },
   {
    "id": "S9",
-   "start": 233,
+   "start": 245.7,
    "seconds": 15.5
   }
  ],
@@ -153,93 +153,107 @@
    "text": "Even when the question sounds like physics."
   },
   {
+   "line": "s6c",
+   "shot": "S6",
+   "start": 138.303,
+   "seconds": 3.813,
+   "text": "Ask in Hinglish, and it answers in Hinglish, from the same page."
+  },
+  {
    "line": "s7a",
    "shot": "S7",
-   "start": 138.3,
+   "start": 146.33333333333334,
    "seconds": 5.788,
    "text": "Then it turns the course into questions, each one checked by a second model, and by arithmetic."
   },
   {
    "line": "s7b",
    "shot": "S7",
-   "start": 144.3,
+   "start": 152.33333333333334,
    "seconds": 4.505,
    "text": "A wrong answer is read, not just marked: the misconception, and the page."
   },
   {
    "line": "s7c",
    "shot": "S7",
-   "start": 150.4,
+   "start": 158.43333333333334,
    "seconds": 5.652,
    "text": "Behind it, a model of what you know: nineteen concepts, linked by what depends on what."
   },
   {
    "line": "s7d",
    "shot": "S7",
-   "start": 159.5,
+   "start": 167.53333333333333,
    "seconds": 1.904,
    "text": "Every estimate explains itself."
   },
   {
    "line": "s7e",
    "shot": "S7",
-   "start": 165.6,
+   "start": 173.63333333333333,
    "seconds": 3.033,
    "text": "And your week is planned around what you are about to forget."
   },
   {
    "line": "s7f",
    "shot": "S7b",
-   "start": 171.5,
+   "start": 179.53333333333333,
    "seconds": 7.738,
    "text": "And when a concept needs teaching, it cuts you a lesson: a short film on your weakest concept, made only from your own course."
   },
   {
    "line": "s8a",
    "shot": "S8",
-   "start": 189.4,
+   "start": 194.8,
    "seconds": 0.863,
    "text": "We measured it."
   },
   {
    "line": "s8b",
    "shot": "S8",
-   "start": 190.8,
+   "start": 196.20000000000002,
    "seconds": 8.387,
    "text": "Thirty-nine questions whose source we know. The right page, slide, or second is in the top three, eighty-seven percent of the time."
   },
   {
    "line": "s8r",
    "shot": "S8",
-   "start": 199.70000000000002,
+   "start": 205.10000000000002,
    "seconds": 5.978,
    "text": "RAGAS scores the answers themselves: faithfulness, answer relevancy, and context precision."
   },
   {
    "line": "s8c",
    "shot": "S8",
-   "start": 206.60000000000002,
+   "start": 212,
    "seconds": 3.817,
    "text": "Take vision away, and a quarter of what the answers need is gone."
   },
   {
+   "line": "s8g",
+   "shot": "S8",
+   "start": 216.5,
+   "seconds": 8.306,
+   "text": "Outside the course, it declined fourteen questions of fourteen. And ninety-eight percent of its cited sentences are fully supported."
+  },
+  {
    "line": "s8d",
    "shot": "S8",
-   "start": 211.8,
-   "seconds": 13.883,
-   "text": "With simulated students, adaptive practice beats random questions, and beats plain syllabus order for novices and for students with gaps. Fast learners still do better with the syllabus. That is in the report too."
+   "start": 226.10000000000002,
+   "seconds": 12.159,
+   "text": "With simulated students, adaptive practice beats random questions, and beats plain syllabus order for novices. Fast learners still do better with the syllabus. That is in the report too."
   },
   {
    "line": "s8e",
    "shot": "S8",
-   "start": 226.4,
+   "start": 239.10000000000002,
    "seconds": 5.118,
    "text": "Every number in this film is in the repository, with the command that reproduces it."
   },
   {
    "line": "s9a",
    "shot": "S9",
-   "start": 234.5,
+   "start": 247.2,
    "seconds": 1.668,
    "text": "Every answer shows its proof."
   }
@@ -254,8 +268,8 @@
    "end": 84.214
   },
   {
-   "start": 233,
-   "end": 237.4
+   "start": 245.7,
+   "end": 250.1
   }
  ]
 }

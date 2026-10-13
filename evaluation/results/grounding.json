@@ -1,0 +1,98 @@
+{
+ "n_in_material": 39,
+ "n_off_material": 14,
+ "refusal": {
+  "in_material_answered": 39,
+  "in_material_declined": 0,
+  "off_material_declined": 14,
+  "off_material_answered": 0,
+  "decline_precision": 1.0,
+  "decline_recall": 1.0,
+  "by_distance": {
+   "far": {
+    "declined": 6,
+    "n": 6
+   },
+   "near": {
+    "declined": 8,
+    "n": 8
+   }
+  },
+  "answered_off_material": [],
+  "declined_in_material": []
+ },
+ "citation_location": {
+  "answers_citing_gold_location": {
+   "mean": 0.8205,
+   "ci95": 0.122,
+   "n": 39
+  },
+  "by_stratum": {
+   "lecture-board": {
+    "mean": 0.4,
+    "ci95": 0.4801,
+    "n": 5
+   },
+   "lecture-speech": {
+    "mean": 1.0,
+    "ci95": 0.0,
+    "n": 5
+   },
+   "slide": {
+    "mean": 0.75,
+    "ci95": 0.3208,
+    "n": 8
+   },
+   "textbook-figure": {
+    "mean": 1.0,
+    "ci95": 0.0,
+    "n": 7
+   },
+   "textbook-maths": {
+    "mean": 0.7778,
+    "ci95": 0.2881,
+    "n": 9
+   },
+   "textbook-prose": {
+    "mean": 1.0,
+    "ci95": 0.0,
+    "n": 5
+   }
+  }
+ },
+ "citation_support": {
+  "segments_judged": 58,
+  "fully_supported": 0.9828,
+  "partly_supported": 0.0,
+  "unsupported": 0.0172,
+  "unsupported_examples": [
+   {
+    "id": "in-35",
+    "segment": "The spatial integral of Newton's second law in the x-direction is represented as the integral of $F_x$ with respect to $x'$ from $x_i$ to $x_f$ equal to $m$ times the integral from $x_i$ to $x_f$.",
+    "note": "The segment is incomplete as it fails to specify the integrand for the right-hand side of the equation, whereas the excerpt and board show the integrand as a_x dx'."
+   }
+  ],
+  "judge_control": {
+   "segments_judged": 58,
+   "fully_supported": 0.0,
+   "partly_supported": 0.0,
+   "unsupported": 1.0
+  }
+ },
+ "segments_per_answer": {
+  "mean": 1.4872,
+  "ci95": 0.2145,
+  "n": 39
+ },
+ "unsourced_segments_removed": 0,
+ "models": {
+  "tutor": [
+   "gemini-3.5-flash-lite",
+   "retrieval-gate"
+  ],
+  "judge": [
+   "gemini-3.1-flash-lite",
+   "gemini-3.5-flash"
+  ]
+ }
+}

@@ -25,7 +25,7 @@ it. From this folder:
 
 ```bash
 cd film && npm install && cd ..                                          # Remotion and KaTeX
-node takes/record.mjs ask refuse practice lessons progress map library   # screen takes of the running app
+node takes/record.mjs ask refuse hinglish practice lessons progress map library   # screen takes of the running app
 ../.venv/bin/python tools/export_data.py                                 # footage, pages and numbers
 python tools/voice.py                                                    # narration from film/src/script.json
 sh tools/render.sh                                                       # timeline, music, render, loudness

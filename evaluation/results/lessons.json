@@ -1,0 +1,430 @@
+{
+ "concepts": 19,
+ "lessons_made": 19,
+ "too_little_material": [],
+ "scenes_kept": 90,
+ "scenes_dropped": 0,
+ "dropped_because": {},
+ "scenes_per_lesson": {
+  "mean": 4.7368,
+  "ci95": 0.2034,
+  "n": 19
+ },
+ "kinds": {
+  "read": 42,
+  "slide": 22,
+  "listen": 13,
+  "figure": 12,
+  "board": 1
+ },
+ "textbook_scenes": 42,
+ "textbook_scenes_with_verified_quote": 40,
+ "lessons_with_the_lecturers_voice": 13,
+ "narration_words_per_lesson": {
+  "mean": 80.4211,
+  "ci95": 7.9698,
+  "n": 19
+ },
+ "narration_support": {
+  "lines_judged": 77,
+  "fully_supported": 0.987,
+  "partly_supported": 0.0,
+  "unsupported": 0.013
+ },
+ "models": {
+  "script": [
+   "gemini-3.5-flash-lite"
+  ],
+  "judge": [
+   "gemini-3.1-flash-lite"
+  ]
+ },
+ "per_concept": [
+  {
+   "concept": "Position, Displacement, and Average Velocity",
+   "scenes": 5,
+   "dropped": 0,
+   "kinds": {
+    "read": 2,
+    "slide": 2,
+    "listen": 1
+   },
+   "read": 2,
+   "read_with_quote": 2,
+   "hears_the_lecturer": true,
+   "narration_words": 88,
+   "support": [
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "concept": "Instantaneous Velocity and Speed",
+   "scenes": 5,
+   "dropped": 0,
+   "kinds": {
+    "read": 2,
+    "slide": 1,
+    "figure": 1,
+    "listen": 1
+   },
+   "read": 2,
+   "read_with_quote": 1,
+   "hears_the_lecturer": true,
+   "narration_words": 72,
+   "support": [
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "concept": "Average and Instantaneous Acceleration",
+   "scenes": 5,
+   "dropped": 0,
+   "kinds": {
+    "read": 3,
+    "slide": 1,
+    "listen": 1
+   },
+   "read": 3,
+   "read_with_quote": 3,
+   "hears_the_lecturer": true,
+   "narration_words": 76,
+   "support": [
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "concept": "Kinematic Equations for Constant Acceleration",
+   "scenes": 5,
+   "dropped": 0,
+   "kinds": {
+    "slide": 1,
+    "read": 2,
+    "board": 1,
+    "listen": 1
+   },
+   "read": 2,
+   "read_with_quote": 2,
+   "hears_the_lecturer": true,
+   "narration_words": 65,
+   "support": [
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "concept": "Free-Fall Motion",
+   "scenes": 5,
+   "dropped": 0,
+   "kinds": {
+    "read": 2,
+    "figure": 1,
+    "listen": 1,
+    "slide": 1
+   },
+   "read": 2,
+   "read_with_quote": 2,
+   "hears_the_lecturer": true,
+   "narration_words": 77,
+   "support": [
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "concept": "Kinematics via Integration",
+   "scenes": 5,
+   "dropped": 0,
+   "kinds": {
+    "read": 3,
+    "figure": 1,
+    "listen": 1
+   },
+   "read": 3,
+   "read_with_quote": 3,
+   "hears_the_lecturer": true,
+   "narration_words": 65,
+   "support": [
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "concept": "Forces and Free-Body Diagrams",
+   "scenes": 5,
+   "dropped": 0,
+   "kinds": {
+    "read": 3,
+    "slide": 1,
+    "listen": 1
+   },
+   "read": 3,
+   "read_with_quote": 3,
+   "hears_the_lecturer": true,
+   "narration_words": 77,
+   "support": [
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "concept": "Newton's First Law and Inertia",
+   "scenes": 4,
+   "dropped": 0,
+   "kinds": {
+    "read": 2,
+    "slide": 1,
+    "listen": 1
+   },
+   "read": 2,
+   "read_with_quote": 2,
+   "hears_the_lecturer": true,
+   "narration_words": 42,
+   "support": [
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "concept": "Newton's Second Law",
+   "scenes": 5,
+   "dropped": 0,
+   "kinds": {
+    "read": 2,
+    "figure": 1,
+    "listen": 1,
+    "slide": 1
+   },
+   "read": 2,
+   "read_with_quote": 2,
+   "hears_the_lecturer": true,
+   "narration_words": 74,
+   "support": [
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "concept": "Mass and Weight",
+   "scenes": 5,
+   "dropped": 0,
+   "kinds": {
+    "read": 3,
+    "slide": 2
+   },
+   "read": 3,
+   "read_with_quote": 3,
+   "hears_the_lecturer": false,
+   "narration_words": 86,
+   "support": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "concept": "Newton's Third Law",
+   "scenes": 5,
+   "dropped": 0,
+   "kinds": {
+    "slide": 2,
+    "read": 2,
+    "listen": 1
+   },
+   "read": 2,
+   "read_with_quote": 2,
+   "hears_the_lecturer": true,
+   "narration_words": 79,
+   "support": [
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "concept": "Multi-Body Systems and Coupled Motion",
+   "scenes": 5,
+   "dropped": 0,
+   "kinds": {
+    "read": 3,
+    "figure": 1,
+    "slide": 1
+   },
+   "read": 3,
+   "read_with_quote": 3,
+   "hears_the_lecturer": false,
+   "narration_words": 113,
+   "support": [
+    "yes",
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "concept": "Static and Kinetic Friction",
+   "scenes": 5,
+   "dropped": 0,
+   "kinds": {
+    "read": 2,
+    "slide": 1,
+    "figure": 1,
+    "listen": 1
+   },
+   "read": 2,
+   "read_with_quote": 2,
+   "hears_the_lecturer": true,
+   "narration_words": 87,
+   "support": [
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "concept": "Centripetal Force and Banked Curves",
+   "scenes": 4,
+   "dropped": 0,
+   "kinds": {
+    "read": 3,
+    "figure": 1
+   },
+   "read": 3,
+   "read_with_quote": 3,
+   "hears_the_lecturer": false,
+   "narration_words": 85,
+   "support": [
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "concept": "Drag Force and Terminal Velocity",
+   "scenes": 4,
+   "dropped": 0,
+   "kinds": {
+    "read": 2,
+    "figure": 1,
+    "slide": 1
+   },
+   "read": 2,
+   "read_with_quote": 2,
+   "hears_the_lecturer": false,
+   "narration_words": 66,
+   "support": [
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "concept": "Work Done by a Constant Force",
+   "scenes": 5,
+   "dropped": 0,
+   "kinds": {
+    "slide": 1,
+    "read": 2,
+    "figure": 1,
+    "listen": 1
+   },
+   "read": 2,
+   "read_with_quote": 1,
+   "hears_the_lecturer": true,
+   "narration_words": 122,
+   "support": [
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "concept": "Work Done by Variable Forces",
+   "scenes": 4,
+   "dropped": 0,
+   "kinds": {
+    "read": 1,
+    "figure": 1,
+    "slide": 2
+   },
+   "read": 1,
+   "read_with_quote": 1,
+   "hears_the_lecturer": false,
+   "narration_words": 89,
+   "support": [
+    "yes",
+    "yes",
+    "yes",
+    "no"
+   ]
+  },
+  {
+   "concept": "Work-Energy Theorem",
+   "scenes": 5,
+   "dropped": 0,
+   "kinds": {
+    "slide": 1,
+    "read": 2,
+    "figure": 1,
+    "listen": 1
+   },
+   "read": 2,
+   "read_with_quote": 2,
+   "hears_the_lecturer": true,
+   "narration_words": 95,
+   "support": [
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  },
+  {
+   "concept": "Power",
+   "scenes": 4,
+   "dropped": 0,
+   "kinds": {
+    "read": 1,
+    "slide": 2,
+    "figure": 1
+   },
+   "read": 1,
+   "read_with_quote": 1,
+   "hears_the_lecturer": false,
+   "narration_words": 70,
+   "support": [
+    "yes",
+    "yes",
+    "yes",
+    "yes"
+   ]
+  }
+ ]
+}

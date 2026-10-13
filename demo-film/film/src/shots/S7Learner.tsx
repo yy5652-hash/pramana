@@ -41,7 +41,7 @@ const rejected = Object.values(stats.questions_rejected as Record<string, number
 export const S7Learner: React.FC = () => (
   <AbsoluteFill>
     <Cuts clips={CLIPS} />
-    <Lower from={0.5} to={4.4} label="QUESTIONS WRITTEN FROM THE COURSE" value={`${verified + rejected} drafted · ${rejected} rejected before you see them`} />
+    <Lower from={0.5} to={4.4} label="QUESTIONS WRITTEN FROM THE COURSE" value={`${verified + rejected} drafted · ${rejected} rejected before use`} />
     {S7_SHIFT ? <Lower from={S7_WRONG + 0.6} to={S7_WRONG + 2.8} label="THE LEARNER MODEL MOVES WITH EVERY ANSWER" value={`mastery ${S7_SHIFT}`} /> : null}
     <Lower from={S7_WRONG + 3.2} to={t1 - 0.2} label="A WRONG ANSWER IS READ, NOT JUST MARKED" value="the misconception, and the page" right />
     <Lower from={t1 + 0.6} to={t2 - 0.3} label={`${stats.concepts} CONCEPTS · ${stats.prerequisite_edges} PREREQUISITE LINKS`} value="what you know, and what it rests on" />

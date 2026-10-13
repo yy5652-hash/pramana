@@ -162,10 +162,11 @@ claimed to. They are not in the code.
 See the tables in `results.md`. In words:
 
 * Adaptive practice teaches clearly more than random practice.
-* Against syllabus order it is about level overall. It wins for the students adaptivity is
-  meant for (novices, and students with a gap in their prerequisites) and **loses for the
-  fast learner**, who is best served by simply moving on after each question; the model's
-  fixed learning rate holds that student back.
+* Against syllabus order it is slightly behind overall. It wins clearly for novices. For
+  students with a gap in their prerequisites it is ahead by less than the confidence
+  interval, which we count as level. It **loses for the fast learner**, who is best served
+  by simply moving on after each question; the model's fixed learning rate holds that
+  student back.
 * In the flat learner, where prerequisites and difficulty do not matter, syllabus order is
   best. That is the expected result of the ablation, and it bounds the claim: the adaptive
   policy helps to the extent that prerequisite structure matters for learning.

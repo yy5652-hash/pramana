@@ -13,7 +13,7 @@ pages, slides and lectures.
 Built for Track D (Personalized Tutoring & Adaptive Learning) of the Multimodal AI
 Hackathon 2026.
 
-- **Demo film (3:35):** *link added at submission*
+- **Demo film (4:21):** *link added at submission*
 - **Docs:** [architecture](docs/architecture.md) · [grounding](docs/grounding.md) · [learner model](docs/learner-model.md) · [lessons](docs/lessons.md) · [evaluation method](docs/evaluation.md) · [results](docs/results.md)
 
 ## Results at a glance
@@ -26,16 +26,20 @@ Sample course: introductory mechanics from one textbook (OpenStax *University Ph
 | Measured | Result |
 |---|---|
 | Citable units from 21 sources | 961 (64% needed vision to read) |
-| Questions verified / rejected before use | 230 / 28 |
+| Questions verified / rejected before use | 207 / 21 |
 | Retrieval hits the exact page, slide or passage (n = 39) | hit@1 0.64, hit@3 0.87, MRR 0.76 |
 | Context recall with vision / without (n = 39) | 1.00 / 0.77 |
-| RAGAS (n = 25) | faithfulness 0.94, answer relevancy 0.93, context precision 0.92, context recall 1.00 |
-| Simulated students: gain in true proficiency (720 runs) | adaptive +0.096, syllabus order +0.106, random +0.054 |
+| RAGAS (n = 39) | faithfulness 0.96, answer relevancy 0.91, context precision 0.92, context recall 1.00 |
+| Off-material questions declined | 14 of 14 |
+| In-material questions answered | 39 of 39 |
+| Answer segments fully supported by their own citations | 98% of 58 |
+| Lesson films: narration lines supported by the source on screen | 99% of 77 (19 lessons; 0 scenes dropped by code) |
+| Simulated students: gain in true proficiency (720 runs) | adaptive +0.098, syllabus order +0.110, random +0.061 |
 | Repeated questions served by the selector | 0.0% |
 <!-- results:end -->
 
 Where the product loses is in the same report: against a plain syllabus-order baseline the
-adaptive policy is about level overall and worse for fast learners. See
+adaptive policy is slightly behind overall: ahead for novices, worse for fast learners. See
 [evaluation.md](docs/evaluation.md#what-the-simulation-shows-now-including-where-the-product-loses).
 
 ## What it does
@@ -48,7 +52,7 @@ adaptive policy is about level overall and worse for fast learners. See
 | Use information from figures and diagrams | 119 figures described with bounding boxes; 83 board readings; equations restored as LaTeX | `pramana/ingest/vision.py` |
 | Cited answers that open the exact page, slide or timestamp | Answers are returned as segments that each name their sources; the viewer opens the page image with the passage outlined, the slide, or the video seeked to the second | `pramana/tutor.py`, `web/js/viewer.js` |
 | Decline or flag what the material does not cover; keep outside knowledge separate | Two refusal gates; outside knowledge only on request and only in a separately labelled block | `pramana/tutor.py`, [grounding.md](docs/grounding.md) |
-| Quizzes and mock exams: MCQ, short answer, numerical; tagged to topic, source and difficulty | 230 verified questions, each tied to a concept, source units and a difficulty from 1 to 5 | `pramana/assess/` |
+| Quizzes and mock exams: MCQ, short answer, numerical; tagged to topic, source and difficulty | 207 verified questions, each tied to a concept, source units and a difficulty from 1 to 5 | `pramana/assess/` |
 | Verify question correctness; avoid repeats | Structure check, arithmetic recomputation of numerical keys, blind solve by a different model, near-duplicate filter; an attempted question is never served again | `pramana/assess/generate.py`, `select.py` |
 | Cited feedback; report with weak topics and likely misconceptions | Every MCQ distractor is written with the misconception it catches; wrong numbers are matched against slip signatures; the report traces weak topics to their weakest prerequisite | `pramana/assess/grade.py`, `session.py` |
 | Per-topic mastery that updates after every quiz and conversation | Bayesian knowledge tracing with item-aware guess and slip, forgetting, and evidence that flows along the prerequisite map; chat messages are read as evidence too | `pramana/learner.py`, [learner-model.md](docs/learner-model.md) |
