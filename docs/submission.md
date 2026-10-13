@@ -39,9 +39,11 @@ then tutors and tests a student from that material alone.
   nearest thing the course does cover. Outside knowledge appears only if the student asks
   for it, in a separate labelled block.
 - **It cuts you a lesson.** For the concept the learner model says you most need, it makes
-  a one-to-two-minute narrated film out of your own course: the textbook page with the
+  a narrated film of about two minutes out of your own course: the textbook page with the
   passage outlined and the quoted words lit, the slide, the lecture in your lecturer's own
-  voice. Nothing in it is generated imagery, and every scene opens its source.
+  voice, the textbook's own worked example one step at a time, your own wrong answer from
+  practice with the slip named, what to keep, and one checked question you have not met.
+  Nothing in it is generated imagery, and every scene opens its source.
 - **It tests with checked questions.** MCQ, short-answer and numerical questions are
   generated from the course and enter the bank only after arithmetic recomputes the key and
   a second model, solving blind, agrees. 228 were drafted; 21 were rejected.
@@ -76,13 +78,17 @@ concept from that concept's own passages. The selector picks the next question f
 learner model: the weakest concept the student is ready for, at a difficulty they should
 get right about 85 % of the time.
 
-**Lessons as film.** One model call writes a storyboard: which sources to show, and what the
-narrator says over each. Code then keeps only the scenes it can tie to a source: the words
-to be lit on a page must be in that passage word for word, and the stretch of lecture to be
-heard must be found in the word-level transcript. The page is re-rendered from the PDF for
-a sharp close-up, the quoted words are located by the PDF's own character positions, the
-narration is voiced locally (Kokoro), and the film is drawn with Pillow and encoded with
-PyAV. No Manim, no TeX, no stock footage.
+**Lessons as film.** One model call writes a storyboard: which sources to show, what the
+narrator says over each, the steps of the textbook's worked example, a few sentences on the
+student's mistake, and what to keep. Code then keeps only what it can tie to a source: the
+words to be lit on a page must be in that passage word for word, the stretch of lecture to
+be heard must be found in the word-level transcript, the example's steps must follow the
+textbook's order, and a point of the recap must rest on a scene that was kept. The mistake
+and the closing question come from the question bank and the student's own attempts, not
+from the model. The page is re-rendered from the PDF for a sharp close-up, the quoted words
+are located by the PDF's own character positions, formulas on the cards are set with the
+KaTeX fonts by a small typesetter of our own, the narration is voiced locally (Kokoro), and
+the film is drawn with Pillow and encoded with PyAV. No Manim, no TeX, no stock footage.
 
 **One model client.** Any OpenAI-compatible endpoint works. Every reply is cached, and in
 replay mode the knowledge base, the question bank and the whole evaluation rebuild from the

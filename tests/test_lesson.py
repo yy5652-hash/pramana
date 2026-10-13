@@ -91,3 +91,90 @@ def test_a_film_is_cut_with_picture_and_sound(tmp_path):
         assert (film.streams.video[0].width, film.streams.video[0].height) == (render.W, render.H)
         assert len(film.streams.audio) == 1
         assert sum(1 for _ in film.decode(video=0)) == 27
+
+
+# ---- the longer lesson: formulas on cards, the worked example, the mistake, the closing question ----
+
+def test_formulas_are_set_not_dropped():
+    from pramana.lesson import typeset
+
+    plain = typeset.formula("a = F/m", 30, render.CHALK)
+    stacked = typeset.formula(r"a = \frac{F_{\text{net}}}{m}", 30, render.CHALK)
+    assert stacked.up > 1.3 * plain.up and stacked.width < plain.width           # a fraction is stacked: taller, and narrower than a/b in a row
+    assert typeset.formula(r"\vec{F}", 30, render.CHALK).up > typeset.formula("F", 30, render.CHALK).up     # the arrow sits over the letter
+    assert typeset.formula(r"\nosuchcommand{x} + 1", 30, render.CHALK).width > 0     # an unknown command is shown, not fatal
+    assert typeset.unit("m/s^2") == r"\text{m/s}^{2}" and typeset.unit("dimensionless") == ""
+    laid = typeset.layout(r"Find $a$ if $F = 12\ \text{N}$ and $m = 3\ \text{kg}$, " * 6, 30, render.CHALK, 500)
+    assert len(laid.lines) > 3 and laid.width <= 500
+    wide = typeset.layout(r"$a = \frac{45.0\ \text{m/s} - 15.0\ \text{m/s}}{6.0\ \text{s}} = \frac{30.0\ \text{m/s}}{6.0\ \text{s}} = 5.0\ \text{m/s}^2$", 30, render.CHALK, 300)
+    assert wide.width <= 300                                                    # a formula longer than the line is set smaller, never cut
+
+
+def _passage(db, unit_id: str, ord_: int, text: str, concept: str | None = "velocity", page: int = 9) -> None:
+    db.insert("units", {"id": unit_id, "source_id": "book", "kind": "text", "modality": "text", "locator": {"page": page, "rect": [0.1, 0.1 + 0.01 * ord_, 0.9, 0.2 + 0.01 * ord_]},
+                        "section": "", "text": text, "asset": "", "ord": ord_})
+    if concept:
+        db.insert("unit_concepts", {"unit_id": unit_id, "concept_id": concept, "weight": 1.0})
+
+
+def test_a_worked_example_is_found_by_the_parts_the_textbook_prints(db):
+    _passage(db, "book:p9:1", 20, "EXAMPLE 3.2\nFinding velocity from a graph. Given the position-versus-time graph, find the velocity during each interval of the trip.")
+    _passage(db, "book:p9:2", 21, "The graph has three straight lines.", concept=None)
+    _passage(db, "book:p9:3", 22, "### Strategy\n\nThe graph contains three straight lines. We find the velocity during each interval by taking the slope of the line.")
+    _passage(db, "book:p9:4", 23, "### Solution\n\nTime interval 0 s to 0.5 s: the slope is 1.0 m/s. Time interval 0.5 s to 1.0 s: the slope is 0.0 m/s, so the object is at rest.")
+    _passage(db, "book:p9:5", 24, "### Significance\n\nDuring the first interval the object moves away from the origin, and during the second it does not move at all.")
+    _passage(db, "book:p9:6", 25, "### Strategy\n\nA strategy with no solution after it is not a worked example and is never offered to a lesson.")
+    parts = script.worked_example(db, "velocity")
+    assert [(role, unit["id"]) for role, unit in parts] == [("problem", "book:p9:1"), ("strategy", "book:p9:3"), ("solution", "book:p9:4"), ("significance", "book:p9:5")]
+    assert script.worked_example(db, "position") == []                          # nothing tagged with that concept
+    left = script.worked_example(db, "velocity", exclude={"book:p9:1"})          # a part already on screen elsewhere is left out
+    assert [role for role, _ in left] == ["strategy", "solution", "significance"]
+
+
+def test_the_example_keeps_the_textbooks_order_and_needs_its_solution():
+    example = [("problem", _unit("e1", "text", "A lawn mower is pushed with a net force of fifty one newtons and has a mass of twenty four kilograms.")),
+               ("strategy", _unit("e2", "text", "Since the net force and the mass are given, the acceleration can be calculated directly from the second law.")),
+               ("solution", _unit("e3", "text", "Entering known values gives $a = \\frac{51\\text{ N}}{24\\text{ kg}}$, which is 2.1 metres per second squared."))]
+    drafts = [{"source": "E2", "narration": "The plan is to use the second law directly.", "focus": "the acceleration can be calculated directly"},
+              {"source": "E1", "narration": "Out of order, so it is dropped.", "focus": ""},
+              {"source": "E7", "narration": "No such part.", "focus": ""},
+              {"source": "E3", "narration": "Fifty one newtons over twenty four kilograms is two point one metres per second squared.", "focus": "words that are not there at all"}]
+    steps, dropped = script._steps(drafts, example)
+    assert [(s["role"], s["unit_id"]) for s in steps] == [("strategy", "e2"), ("solution", "e3")]
+    assert steps[0]["focus"] and steps[1]["focus"] == "" and len(dropped) == 2
+    steps, dropped = script._steps(drafts[:1], example)                         # the strategy alone, with no solution: no example at all
+    assert steps == [] and "without its solution" in dropped[-1]
+
+
+def test_a_lesson_takes_up_the_students_own_mistake(db):
+    from pramana.assess import session
+
+    common = script.mistake(db, "s1", "velocity")                               # nothing answered yet: a mistake the bank marks as common
+    assert common and not common["own"] and common["why"] == "confuses speed with velocity" and common["wrong"] == "A" and common["right"] == "B"
+    sitting = session.start(db, "s1", "quiz", ["velocity"], n=1, types=["numeric"])
+    session.answer(db, "course", sitting["assessment_id"], sitting["question"]["id"], "20")       # the key is 10 m/s
+    own = script.mistake(db, "s1", "velocity")
+    assert own["own"] and own["question_id"] == sitting["question"]["id"]
+    assert own["wrong"] == r"$20\ \text{m/s}$" and own["right"] == r"$10\ \text{m/s}$" and "factor of 2" in own["why"]
+    assert script.mistake(db, "s1", "position")["own"] is False                 # a mistake on one concept is not carried to another
+
+
+def test_the_closing_question_is_one_the_student_has_not_met(db):
+    from pramana.assess import session
+
+    first = script.check_question(db, "s1", "velocity")
+    assert first["type"] == "mcq" and first["concept_id"] == "velocity"
+    assert script.check_question(db, "s1", "velocity", avoid={first["id"]})["id"] != first["id"]
+    sitting = session.start(db, "s1", "quiz", ["velocity"], n=1, types=["mcq"])
+    session.answer(db, "course", sitting["assessment_id"], sitting["question"]["id"], 1)
+    assert script.check_question(db, "s1", "velocity")["id"] != sitting["question"]["id"]
+
+
+def test_a_card_builds_up_as_it_is_spoken():
+    draw = render.panel([{"text": "FROM YOUR OWN PRACTICE", "face": "mono", "size": 23, "colour": render.CITE},
+                         {"text": r"Find $a$ if $F = 12\ \text{N}$ and $m = 3\ \text{kg}$.", "size": 31},
+                         {"text": r"$8\ \text{m/s}^{2}$", "size": 31, "colour": render.BAD, "lead": "YOU ANSWERED", "at": 1.0},
+                         {"text": r"$4\ \text{m/s}^{2}$", "size": 31, "colour": render.GOOD, "lead": "CORRECT", "at": 2.0}])
+    lit = lambda t: int(np.asarray(draw(t)).astype(int).sum())                  # noqa: E731
+    assert lit(0.5) < lit(1.6) < lit(2.6)                                       # each line arrives when its time comes
+    assert lit(2.6) == lit(9.0) and draw(0.0).size == (render.W, render.H)

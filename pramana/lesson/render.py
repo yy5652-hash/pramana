@@ -23,10 +23,12 @@ import numpy as np
 from PIL import Image, ImageChops, ImageDraw, ImageEnhance, ImageFont
 
 from ..config import ROOT
+from . import typeset
 
 W, H, FPS = 1280, 720, 30
 RATE = 48000                    # audio sample rate of the finished film
 BLACK, CHALK, DIM, FAINT, CITE = (5, 5, 5), (243, 239, 230), (150, 145, 135), (84, 80, 73), (240, 138, 42)
+GOOD, BAD = (136, 198, 142), (236, 116, 98)       # the right answer and the wrong one, on a card
 FADE = 7                        # frames a shot takes to come up from black and to go back
 
 _FONT_DIR = ROOT / "web" / "vendor" / "katex" / "fonts"
@@ -246,6 +248,60 @@ def card(lines: list[tuple[str, str, int, tuple[int, int, int]]], top: int = 0, 
             y += gap
         y += height + gap
     return lambda t: image.copy()
+
+
+def panel(blocks: list[dict], top: int = 104, bottom: int = 560, left: int = 120, width: int = W - 240) -> Callable[[float], Image.Image]:
+    """A card of set type, formulas included, that builds up as it is spoken.
+
+    Each block is a paragraph: "text" (which may hold $formulas$), "size", "colour", "face", and
+    optionally "lead" (a small label in a column to its left, such as YOU ANSWERED), "badge" (the
+    citation number it rests on), "above" (extra room over it) and "at" (the second it appears).
+    The blocks sit between the source tag and the captions; if they do not fit, all are set smaller.
+    """
+    for scale in (1.0, 0.92, 0.85, 0.78, 0.72, 0.66, 0.6, 0.54):
+        column = max([typeset.glyphs(b["lead"], "mono", b.get("size", 30) * b.get("lead_size", 0.6) * scale, DIM).width for b in blocks if b.get("lead")] + [0.0])
+        column = column + 26 * scale if column else 0.0
+        laid, y = [], 0.0
+        for block in blocks:
+            size = block.get("size", 30) * scale
+            badge = 46 * scale if block.get("badge") is not None else 0.0
+            indent = column if block.get("lead") else 0.0
+            text = typeset.layout(block["text"], size, block.get("colour", CHALK), width - indent - badge, block.get("face", "roman"))
+            y += block.get("above", 0) * scale
+            laid.append((block, text, y, size, badge, indent))
+            y += text.height + 0.5 * size
+        if y <= bottom - top or scale == 0.54:
+            break
+    start = top + max((bottom - top - y) / 2, 0)
+    stages = sorted({round(float(block.get("at", 0.0)), 2) for block in blocks})
+    images = []
+    for stage in stages:
+        image = Image.new("RGB", (W, H), BLACK)
+        pen = ImageDraw.Draw(image)
+        for block, text, offset, size, badge, indent in laid:
+            if block.get("at", 0.0) > stage + 1e-6:
+                continue
+            line_up = text.lines[0][1] if text.lines else size * 0.76
+            if block.get("lead"):
+                typeset.glyphs(block["lead"], "mono", size * block.get("lead_size", 0.6), block.get("lead_colour", DIM)).paint(pen, left, start + offset + line_up)
+            if badge:
+                box = (left + indent, start + offset + line_up - 0.78 * size, left + indent + 32 * scale, start + offset + line_up + 0.14 * size)
+                pen.rounded_rectangle(box, radius=7 * scale, fill=CITE)
+                pen.text(((box[0] + box[2]) / 2, (box[1] + box[3]) / 2), str(block["badge"]), font=font("bold", int(size * 0.72)), fill=(20, 12, 4), anchor="mm")
+            text.paint(pen, left + indent + badge, start + offset)
+            if block.get("rule"):
+                under = start + offset + text.height + 0.32 * size
+                pen.line((left, under, left + 150, under), fill=CITE, width=3)
+        images.append(image)
+
+    def draw(t: float) -> Image.Image:
+        k = bisect.bisect_right(stages, t) - 1
+        if k <= 0:
+            return images[0].copy()
+        glow = (t - stages[k]) / 0.3
+        return images[k].copy() if glow >= 1 else Image.blend(images[k - 1], images[k], max(glow, 0.0))
+
+    return draw
 
 
 # ---- what lies over every shot --------------------------------------------------------------

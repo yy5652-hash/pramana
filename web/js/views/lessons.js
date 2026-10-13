@@ -1,11 +1,16 @@
 // Lessons: a short narrated film on one concept, cut from the course's own pages, slides and
 // lectures. Beside the player, every scene is listed with the source it shows; clicking the
 // source opens it at the page, slide or second, exactly as a citation in the tutor does.
-import { api, fill, h, icon, pct, state, studentPath } from "../core.js";
+import { api, fill, h, icon, pct, rich, state, studentPath } from "../core.js";
 import { sourceRow } from "../viewer.js";
 
 const clock = (seconds) => `${Math.floor(seconds / 60)}:${String(Math.floor(seconds % 60)).padStart(2, "0")}`;
 const shows = { read: "the textbook", figure: "a figure", slide: "a slide", board: "the lecture", listen: "the lecturer, in their own words" };
+const part = { problem: "the problem", strategy: "the strategy", solution: "the solution", significance: "what it means" };
+// What a scene is, in the list beside the film.
+const label = (scene) => scene.kind === "example" ? `worked example · ${part[scene.role] || scene.role}`
+  : scene.kind === "mistake" ? (scene.own ? "your own answer in practice" : "a mistake to avoid")
+  : shows[scene.kind] || scene.kind;
 const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export async function lessonsView() {
@@ -22,7 +27,7 @@ export async function lessonsView() {
     const scenes = lesson.scenes.filter((scene) => scene.citation);
     const rows = scenes.map((scene) => {
       const head = h("button.scene-head", { onclick: () => { video.currentTime = scene.at + 0.05; video.play(); } },
-        h("span.n", scene.n), h("span", shows[scene.kind] || scene.kind), h("span.tiny", clock(scene.at)));
+        h("span.n", scene.n), h("span", label(scene)), h("span.tiny", clock(scene.at)));
       const said = scene.kind === "listen"
         ? h("div.said", h("em", `“${scene.focus}”`))
         : h("div.said", scene.narration);
@@ -43,7 +48,24 @@ export async function lessonsView() {
       h("div.card",
         h("h2", "Every scene, and its source"),
         h("p.muted.small", { style: "margin:0 0 6px" }, "The film shows nothing but your own course. Open any source at the place the scene shows."),
-        rows)));
+        rows, ending(lesson, video))));
+  }
+
+  // What the lesson gathers at the end, and the question it leaves the student with.
+  function ending(lesson, video) {
+    const recap = lesson.scenes.find((scene) => scene.kind === "recap");
+    const check = lesson.scenes.find((scene) => scene.kind === "check");
+    const jump = (scene) => () => { video.currentTime = scene.at + 0.05; video.play(); };
+    return [
+      recap ? h("div.scene",
+        h("button.scene-head", { onclick: jump(recap) }, h("span.n", "✓"), h("span", "to keep"), h("span.tiny", clock(recap.at))),
+        h("ul.keep", recap.points.map((point) => h("li", h("span.n", point.n), h("span", point.text))))) : null,
+      check ? h("div.scene",
+        h("button.scene-head", { onclick: jump(check) }, h("span.n", "?"), h("span", "the question it ends on"), h("span.tiny", clock(check.at))),
+        h("div.said", { html: rich(check.card.stem) }),
+        check.card.options.length ? h("ol.options", check.card.options.map((option) => h("li", { html: rich(option) }))) : null,
+        h("button.btn.sm", { style: "margin:6px 0 4px", onclick: () => { location.hash = "#/practice"; } }, "Answer it in Practice", icon("arrow"))) : null,
+    ];
   }
 
   function listEarlier() {
@@ -57,7 +79,7 @@ export async function lessonsView() {
     const step = h("p.muted", "Choosing sources and writing the narration…");
     fill(stage, h("div.card", h("h2", `Cutting a lesson on ${byId[chosen]?.name || "this concept"}`),
       h("div.progress", { style: "margin:14px 0 10px" }, bar), step,
-      h("p.tiny", "About a minute or two. The narration is voiced and the film is cut on this machine; nothing is sent anywhere except the request that writes the script.")));
+      h("p.tiny", "About a minute. The narration is voiced and the film is cut on this machine; nothing is sent anywhere except the request that writes the script.")));
     try {
       let job = await api(studentPath("/lessons"), { concept_id: chosen });
       while (job.status === "running") {
@@ -89,7 +111,7 @@ export async function lessonsView() {
   listEarlier();
   return h("div",
     h("div.head", h("div", h("h1", "Lessons"),
-      h("p", "A short narrated film on one concept, cut from your own textbook, slides and lectures. The narrator may only say what a source says, and every scene shows that source."))),
+      h("p", "A narrated film of about two minutes on one concept, cut from your own textbook, slides and lectures: the idea, the rule, a worked example from the book, a mistake (your own, if you have made one in practice), what to keep, and one question. The narrator may only say what a source says, and every scene shows that source."))),
     !data.voice ? h("div.note", { style: "margin-bottom:14px" }, "The narrator's voice is not installed (pip install kokoro-onnx). Lessons will be cut with captions and the lecturer's own voice only.") : null,
     h("div.card",
       h("h2", "Your next lesson"),

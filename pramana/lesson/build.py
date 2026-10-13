@@ -19,9 +19,10 @@ from ..cite import clock, place
 from ..config import settings
 from ..db import Database
 from . import render, voice
-from .render import CHALK, CITE, DIM, RATE, Shot
+from .render import BAD, CHALK, CITE, DIM, FAINT, GOOD, RATE, Shot
 
 PAGE_SCALE = 3.0        # pages are rendered again at this scale, so a close-up stays sharp
+ROLE_NAME = {"problem": "the problem", "strategy": "the strategy", "solution": "the solution", "significance": "what it means"}
 LEAD, TAIL = 0.30, 0.45  # silence before and after a narrated line
 
 
@@ -159,6 +160,46 @@ def _short(title: str, limit: int = 44) -> str:
     return title if len(title) <= limit else title[: limit - 1].rsplit(" ", 1)[0] + "…"
 
 
+def _reach(line: str, pieces: list[str], seconds: float, lead: float) -> list[float]:
+    """When, in a spoken line, each of its pieces begins: by its share of the letters before it."""
+    return [round(lead + seconds * max(line.find(piece), 0) / max(len(line), 1), 2) for piece in pieces]
+
+
+def _card_shot(db: Database, scene: dict, language: str, progress: Callable[[str], None]) -> Shot:
+    """A card that is spoken over and builds up as it is: the mistake, what to keep, the question to end on."""
+    kind = scene["kind"]
+    sound = narration(scene["narration"], language, progress)
+    spoken = len(sound) / RATE
+    captions = render.split_caption(scene["narration"], spoken - LEAD - TAIL, LEAD)
+    tag, number = "", None
+    if kind == "recap":
+        times = _reach(scene["narration"], [point["text"] for point in scene["points"]], spoken - LEAD - TAIL, LEAD)
+        blocks = [{"text": "TO KEEP", "face": "mono", "size": 23, "colour": CITE, "rule": True}] + [
+            {"text": point["text"], "size": 37, "badge": point["n"], "above": 30 if i == 0 else 12, "at": at} for i, (point, at) in enumerate(zip(scene["points"], times))]
+        hold = 0.9
+    elif kind == "check":
+        card = scene["card"]
+        blocks = [{"text": card["label"], "face": "mono", "size": 23, "colour": CITE}, {"text": card["stem"], "size": 33, "above": 8}]
+        blocks += [{"text": option, "size": 30, "lead": "ABCDEF"[i], "lead_colour": CITE, "lead_size": 0.9, "above": 16 if i == 0 else 0, "at": 1.2 + 0.45 * i}
+                   for i, option in enumerate(card["options"][:6])]
+        blocks.append({"text": card["foot"], "face": "sans", "size": 23, "colour": DIM, "above": 20, "at": 1.6 + 0.45 * len(card["options"])})
+        hold = 6.0                                                   # time to read the question and decide
+    else:
+        card = scene["card"]
+        unit = db.one("SELECT * FROM units WHERE id = ?", [scene["unit_id"]])
+        source = db.one("SELECT * FROM sources WHERE id = ?", [unit["source_id"]])
+        tag, number = f"{_short(source['title'])} · {place(unit)} · what this question was written from", scene.get("n")
+        third = (spoken - LEAD - TAIL) / 3
+        blocks = [{"text": card["label"], "face": "mono", "size": 23, "colour": CITE}, {"text": card["stem"], "size": 31, "above": 8},
+                  {"text": card["wrong"], "size": 31, "colour": BAD, "lead": card["wrong_label"], "above": 18, "at": round(LEAD + 0.2, 2)},
+                  {"text": card["right"], "size": 31, "colour": GOOD, "lead": "CORRECT", "at": round(LEAD + third, 2)}]
+        if card.get("why"):
+            blocks.append({"text": card["why"][0].upper() + card["why"][1:], "size": 29, "colour": CITE, "lead": "THE SLIP", "at": round(LEAD + 2 * third, 2)})
+        hold = 1.2
+    sound = np.concatenate([sound, _silence(hold)])
+    return Shot(len(sound) / RATE, render.panel(blocks), sound, tag=tag, number=number, captions=captions)
+
+
 def shots_for(db: Database, course_id: str, board: dict, progress: Callable[[str], None] = lambda _: None) -> list[Shot]:
     """One shot per scene of the storyboard, in order."""
     language = board.get("language", "en")
@@ -176,13 +217,18 @@ def shots_for(db: Database, course_id: str, board: dict, progress: Callable[[str
         if kind in ("title", "end"):
             sound = narration(scene["narration"], language, progress) if scene.get("narration") else _silence(3.0)
             seconds = max(len(sound) / RATE, 3.0) + (1.2 if kind == "end" else 0.0)
-            lines = [(text, face, size, {"chalk": CHALK, "dim": DIM, "cite": CITE}[colour]) for text, face, size, colour in scene["lines"]]
+            lines = [(text, face, size, {"chalk": CHALK, "dim": DIM, "cite": CITE, "faint": FAINT}[colour]) for text, face, size, colour in scene["lines"]]
             shots.append(Shot(seconds, render.card(lines, rule=scene.get("rule")), sound,
                               captions=render.split_caption(scene["narration"], len(sound) / RATE - LEAD - TAIL, LEAD) if scene.get("narration") else []))
+            continue
+        if kind in ("mistake", "recap", "check"):
+            shots.append(_card_shot(db, scene, language, progress))
             continue
         unit = db.one("SELECT * FROM units WHERE id = ?", [scene["unit_id"]])
         source = db.one("SELECT * FROM sources WHERE id = ?", [unit["source_id"]])
         tag = f"{_short(source['title'])} · {place(unit)}"
+        if kind == "example":
+            tag += f" · worked example, {ROLE_NAME[scene['role']]} ({scene['step']} of {scene['steps']})"
         if kind == "listen":
             t0, t1 = scene["t0"], scene["t1"]
             tag = f"{_short(source['title'])} · {clock(t0)} · the lecturer's own words"
@@ -216,7 +262,7 @@ def shots_for(db: Database, course_id: str, board: dict, progress: Callable[[str
             picture = page_picture(course_id, source, page)
             x0, y0, x1, y1 = extent(db, unit)
             passage = (x0 * picture.width, y0 * picture.height, x1 * picture.width, y1 * picture.height)
-            quote = quote_boxes(course_id, source, page, scene.get("focus") or "", passage) if kind == "read" else []
+            quote = quote_boxes(course_id, source, page, scene.get("focus") or "", passage) if kind in ("read", "example") else []
             draw = render.read_shot(picture, passage, quote, seconds)
         shots.append(Shot(seconds, draw, sound, tag=tag, number=scene.get("n"), captions=captions))
     return shots

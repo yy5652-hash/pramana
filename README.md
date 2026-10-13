@@ -59,7 +59,7 @@ adaptive policy is slightly behind overall: ahead for novices, worse for fast le
 | Per-topic mastery that updates after every quiz and conversation | Bayesian knowledge tracing with item-aware guess and slip, forgetting, and evidence that flows along the prerequisite map; chat messages are read as evidence too | `pramana/learner.py`, [learner-model.md](docs/learner-model.md) |
 | New students | A 10-question diagnostic that picks the most informative item each time, or an intake conversation | `Selector.diagnostic_question` |
 | Evaluate with a standard framework; simulated students | RAGAS on a 53-question test set with known source locations; 720 simulated students across 6 profiles and 3 policies | `evaluation/` |
-| A lesson, not only an answer | For the concept the learner model recommends (or one the student picks), a one-to-two-minute narrated film cut from the course itself: the page with the passage outlined and the quoted words lit, the slide, the lecture in the lecturer's own voice. Scenes that cannot be tied to a source are dropped by code; every scene is clickable to its source | `pramana/lesson/`, [lessons.md](docs/lessons.md) |
+| A lesson, not only an answer | For the concept the learner model recommends (or one the student picks), a narrated film of about two minutes cut from the course itself: the page with the passage outlined and the quoted words lit, the slide, the lecture in the lecturer's own voice, the textbook's own worked example one step at a time, the student's own wrong answer from practice with the slip named, what to keep, and one checked question they have not met. Scenes that cannot be tied to a source are dropped by code; every scene is clickable to its source | `pramana/lesson/`, [lessons.md](docs/lessons.md) |
 | Optional: course map, revision material, schedule, Indian-language interaction, audio | Interactive prerequisite map coloured by mastery; cited flashcards with an audio brief; a study plan from weak topics and forgetting curves; answers in Hindi or Hinglish; voice input and read-aloud | `web/`, `pramana/schedule.py`, `pramana/revision.py` |
 
 ## Quick start
@@ -98,8 +98,10 @@ commands with your course id.
 - **Tutor.** Ask a question. Click a number to open its source. Switch the answer language
   to Hindi or Hinglish. Tick *Allow outside knowledge* to also get a labelled answer for
   things the course does not cover. Answer the check question and watch your mastery move.
-- **Lessons.** *Cut this lesson* makes a short film on the concept you most need, from your
-  own course, in a minute or two. Beside the player, every scene lists the source it shows.
+- **Lessons.** *Cut this lesson* makes a film of about two minutes on the concept you most
+  need, from your own course, in under a minute: the idea, the rule, a worked example from the
+  textbook, a mistake (your own, once you have answered something wrongly in Practice), what
+  to keep, and one question. Beside the player, every scene lists the source it shows.
 - **Practice.** Start with the diagnostic if you are new. Quizzes pick each next question
   from your weakest ready concept; mock exams cover a scope evenly.
 - **Progress.** Mastery per concept, every update that produced it, a study plan and
@@ -137,7 +139,7 @@ More in [architecture.md](docs/architecture.md).
 
 ```bash
 make eval      # retrieval, vision ablation, grounding, RAGAS, simulated students, report
-make test      # 49 unit tests: learner model, selection, grading, scheduling, parsing helpers, lessons
+make test      # 55 unit tests: learner model, selection, grading, scheduling, parsing helpers, lessons
 ```
 
 Method, limits and the failed first attempt at the adaptive policy are written up in
@@ -150,7 +152,7 @@ pramana/            the package
   ingest/           pdf.py, slides.py, video.py, vision.py, concepts.py
   assess/           generate.py (generation + verification), select.py, grade.py, session.py, numeric.py
   tutor.py          the grounded tutor
-  lesson/           script.py (storyboard, grounded by code), build.py, render.py (the film), voice.py
+  lesson/           script.py (storyboard, grounded by code), build.py, render.py (the film), typeset.py (formulas on cards), voice.py
   learner.py        the learner model
   retrieve.py       BM25 + dense + re-ranking
   llm.py            one client for any OpenAI-compatible endpoint: cache, replay, fallback chains
@@ -173,7 +175,8 @@ demo-film/          the demo film's source: Remotion shots, the scripts that rec
 - Lecture videos need a visible board or slides; a talking head adds only its transcript.
 - Slide previews are redrawn from the deck's shapes, so themes and animations are lost.
 - Lesson films are cut, not generated: a concept the course says little about gets no
-  lesson, and the narrator speaks English only.
+  lesson, the worked example is the textbook's own and not a new one, and the narrator
+  speaks English only.
 - The learner model's parameters were chosen by reasoning and simulation, not fitted to
   student data.
 - More in [evaluation.md](docs/evaluation.md#7-limits-of-the-whole-evaluation).

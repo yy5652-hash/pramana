@@ -182,15 +182,23 @@ assumptions; it does not say real students learn more. That needs real students.
 `evaluation/lessons.py`. A storyboard is written for every concept of the course, for a new
 student. No film is cut; the picture adds nothing to what is measured here.
 
-* **What the code let through.** Scenes kept and scenes dropped (a source that does not
-  exist, a source used twice, words to be heard that the lecture does not contain), and how
-  many textbook scenes had their quoted words found in the passage word for word. Only
-  those are lit on the page; the others are shown without a highlight.
-* **Whether the narration is supported.** Code can check that a scene shows the source it
-  cites. It cannot check that the narrator's sentence is what that source says. So each
-  narrated line is read by the judge next to the text of the source it is spoken over, with
-  the same three verdicts as the tutor's citations. The judge is not the model that wrote
-  the script.
+* **What the code let through.** Teaching scenes kept and scenes dropped (a source that does
+  not exist, a source used twice, words to be heard that the lecture does not contain), how
+  many lessons carry a worked example and how many steps of it survived (the textbook's order,
+  the solution among them), how many end on a recap and on a question, and how many textbook
+  scenes had their quoted words found in the passage word for word. Only those are lit on
+  the page; the others are shown without a highlight.
+* **Whether what is said is supported.** Code can check that a scene shows the source it
+  cites. It cannot check that the narrator's sentence is what that source says. So every
+  spoken line that makes a claim is read by the judge next to what it must rest on, with the
+  same three verdicts as the tutor's citations: a scene or a step of the example against
+  its source, the words about the mistake against the question bank's own record of it (the
+  question, the two answers, the slip, the explanation), a point of the recap against the
+  source it names. The judge is not the model that wrote the script. The result is given
+  for all lines and for each part.
+* **Whether a lesson finds the student's own mistake.** No model is involved. For every
+  concept a student answers one of its questions wrongly, and the lesson's choice of mistake
+  must be that answer.
 * **What is not measured.** Whether a lesson teaches. That needs students, or at least a
   before-and-after test with a model that does not already know mechanics, and neither was
   available.

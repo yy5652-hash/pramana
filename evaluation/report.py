@@ -128,24 +128,40 @@ def ragas(r: dict) -> list[str]:
 
 
 def lessons(r: dict) -> list[str]:
-    s = r["narration_support"]
+    s, made = r["narration_support"], r["lessons_made"]
     lines = ["## Lessons", "",
-             f"A storyboard was written for each of {r['concepts']} concepts, for a new student. **{r['lessons_made']} lessons** could be made"
+             f"A storyboard was written for each of {r['concepts']} concepts, for a new student. **{made} lessons** could be made"
              + (f"; {len(r['too_little_material'])} concepts had too little material" if r["too_little_material"] else "") + ". No film is cut for this measurement.", "",
              "| | |", "|---|---:|",
-             f"| Scenes kept (each names a source it was given, once) | {r['scenes_kept']} |",
-             f"| Scenes dropped by code | {r['scenes_dropped']} |",
-             f"| Scenes per lesson | {pm(r['scenes_per_lesson'], 1)} |",
-             f"| Textbook scenes whose quoted words were found in the passage, word for word | {r['textbook_scenes_with_verified_quote']} of {r['textbook_scenes']} |",
-             f"| Lessons in which the student hears the lecturer | {r['lessons_with_the_lecturers_voice']} of {r['lessons_made']} |",
-             f"| Words of narration per lesson | {pm(r['narration_words_per_lesson'], 0)} |", "",
-             "Scenes by what they show: " + ", ".join(f"{name} {n}" for name, n in sorted(r["kinds"].items(), key=lambda kv: -kv[1])) + "."]
+             f"| Teaching scenes kept (each names a source it was given, once) | {r['scenes_kept']} |",
+             f"| Scenes, steps or points dropped by code | {r['scenes_dropped']} |",
+             f"| Teaching scenes per lesson | {pm(r['scenes_per_lesson'], 1)} |"]
+    if "lessons_with_a_worked_example" in r:
+        lines += [f"| Lessons that walk through a worked example from the textbook | {r['lessons_with_a_worked_example']} of {made} ({r['example_steps']} steps) |",
+                  f"| Lessons that take up a mistake (for a new student, one the question bank marks as common) | {r['lessons_with_a_mistake']} of {made} |",
+                  f"| Lessons that end on a recap | {r['lessons_with_a_recap']} of {made} ({r['recap_points']} points) |",
+                  f"| Lessons that end on a checked question the student has not met | {r['lessons_ending_on_a_question']} of {made} |"]
+    lines += [f"| Textbook scenes whose quoted words were found in the passage, word for word | {r['textbook_scenes_with_verified_quote']} of {r['textbook_scenes']} |",
+              f"| Lessons in which the student hears the lecturer | {r['lessons_with_the_lecturers_voice']} of {made} |",
+              f"| Words spoken per lesson | {pm(r['narration_words_per_lesson'], 0)} |"]
+    if "seconds_per_lesson_about" in r:
+        lines.append(f"| Length of a lesson, estimated from its words and clips | {pm(r['seconds_per_lesson_about'], 0)} s |")
+    if "own_mistake_found" in r:
+        own = r["own_mistake_found"]
+        lines.append(f"| A student's own wrong answer found and taken up (one student per concept, no model involved) | {own['found']} of {own['concepts']} |")
+    lines += ["", "Scenes by what they show: " + ", ".join(f"{name} {n}" for name, n in sorted(r["kinds"].items(), key=lambda kv: -kv[1])) + "."]
     if r["dropped_because"]:
         lines += ["", "Dropped because: " + "; ".join(f"{why} ({n})" for why, n in r["dropped_because"].items()) + "."]
     if s["lines_judged"]:
-        lines += ["", f"**Is the narration supported by what is on screen?** {s['lines_judged']} narrated lines were each read by a second model "
-                      f"({', '.join(r['models']['judge'])}) next to the source they are spoken over: {s['fully_supported']:.0%} fully supported, "
+        lines += ["", f"**Is what the lesson says supported by what it rests on?** {s['lines_judged']} spoken lines were each read by a second model "
+                      f"({', '.join(r['models']['judge'])}) next to their source: {s['fully_supported']:.0%} fully supported, "
                       f"{s['partly_supported']:.0%} partly, {s['unsupported']:.0%} unsupported. Script written by {', '.join(r['models']['script'])}."]
+        if r.get("support_by_part"):
+            name = {"teaching": "Teaching scenes, against the source on screen", "example": "Steps of the worked example, against the textbook's own",
+                    "mistake": "The words about the mistake, against the question bank's record of it", "recap": "Points of the recap, against the source they name"}
+            lines += ["", "| Part | Lines | Fully supported | Partly | Unsupported |", "|---|---:|---:|---:|---:|"]
+            lines += [f"| {name.get(part, part)} | {v['lines_judged']} | {v['fully_supported']:.0%} | {v['partly_supported']:.0%} | {v['unsupported']:.0%} |"
+                      for part, v in r["support_by_part"].items()]
     return lines
 
 
@@ -222,7 +238,11 @@ def summary(results: dict, stats: dict) -> list[str]:
         rows.append(("Answer segments fully supported by their own citations", f"{g['citation_support']['fully_supported']:.0%} of {g['citation_support']['segments_judged']}"))
     if "lessons" in results:
         r = results["lessons"]
-        rows.append(("Lesson films: narration lines supported by the source on screen", f"{r['narration_support']['fully_supported']:.0%} of {r['narration_support']['lines_judged']} ({r['lessons_made']} lessons; {r['scenes_dropped']} scenes dropped by code)"))
+        extra = f"{r['lessons_with_a_worked_example']} with a worked example from the textbook; " if "lessons_with_a_worked_example" in r else ""
+        rows.append(("Lesson films: spoken lines supported by what they rest on",
+                     f"{r['narration_support']['fully_supported']:.0%} of {r['narration_support']['lines_judged']} ({r['lessons_made']} lessons; {extra}{r['scenes_dropped']} scenes dropped by code)"))
+        if "own_mistake_found" in r:
+            rows.append(("Lesson films: a student's own wrong answer found and taken up", f"{r['own_mistake_found']['found']} of {r['own_mistake_found']['concepts']} concepts"))
     if "simulation" in results:
         s = results["simulation"]["learners"]["structured"]["summary"]
         rows.append((f"Simulated students: gain in true proficiency ({results['simulation']['students_per_cell'] * len(results['simulation']['learners']['structured']['cells'])} runs)",
