@@ -8,7 +8,7 @@ Copy for the project page. Every number is from `docs/results.md`.
 
 **Track:** D: Personalized Tutoring & Adaptive Learning
 
-**Links:** repository `https://github.com/yy5652-hash/pramana` · video https://youtu.be/QAoypTGtbyU
+**Links:** repository `https://github.com/yy5652-hash/pramana` · video https://youtu.be/QAoypTGtbyU · project page https://devpost.com/software/pramana-v7si9t
 
 **Built with:** Python, FastAPI, SQLite, NumPy, pypdfium2, python-pptx, faster-whisper,
 fastembed (bge-small-en-v1.5, ms-marco-MiniLM), PyAV, Pillow, Gemini API (gemini-3.5-flash-lite,

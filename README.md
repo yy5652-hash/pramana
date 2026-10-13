@@ -14,6 +14,7 @@ Built for Track D (Personalized Tutoring & Adaptive Learning) of the Multimodal 
 Hackathon 2026.
 
 - **Demo film (4:21):** https://youtu.be/QAoypTGtbyU
+- **Devpost:** https://devpost.com/software/pramana-v7si9t
 - **Docs:** [architecture](docs/architecture.md) · [grounding](docs/grounding.md) · [learner model](docs/learner-model.md) · [lessons](docs/lessons.md) · [evaluation method](docs/evaluation.md) · [results](docs/results.md)
 
 ## Results at a glance
