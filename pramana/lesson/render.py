@@ -152,12 +152,12 @@ def read_shot(page: Image.Image, passage: tuple[float, float, float, float], quo
 
 
 def slide_shot(slide: Image.Image, seconds: float) -> Callable[[float], Image.Image]:
-    """A slide shown whole, under the source tag, then leaned into a little."""
+    """A slide shown whole, between the source tag and the captions, then leaned into a little."""
     still = Still(slide)
     cx = slide.width / 2
-    tall = slide.height / 0.86                              # the slide takes 86 % of the frame's height
-    start = window(cx, 0.385 * tall, tall * W / H)          # and starts just below the tag
-    end = window(cx, 0.40 * tall, tall * 0.97 * W / H)
+    tall = slide.height / 0.72                              # the slide takes 72 % of the frame's height,
+    start = window(cx, 0.385 * tall, tall * W / H)          # starts just below the tag
+    end = window(cx, 0.388 * tall, tall * 0.975 * W / H)    # and ends above where the captions sit
     return lambda t: still.view(between(start, end, ease(t / max(seconds, 0.1))))
 
 
