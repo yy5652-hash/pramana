@@ -235,7 +235,9 @@ class LLM:
         if settings.llm_mode == "replay":
             raise ReplayMiss(f"no cached response in '{namespace}' for request {key[:12]}")
         if not settings.llm_api_key:
-            raise LLMError("no API key: set LLM_API_KEY (or GEMINI_API_KEY) or use PRAMANA_LLM_MODE=replay")
+            raise LLMError("no API key. A question of your own needs a model: put a free Gemini key "
+                           "(https://aistudio.google.com/apikey) in .env as LLM_API_KEY and restart the app. "
+                           "The suggested questions, practice and a new student's lessons work without one.")
 
         last_error = "no attempt made"
         for attempt in range(max_attempts):

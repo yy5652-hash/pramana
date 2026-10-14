@@ -163,8 +163,17 @@ class ChatBody(BaseModel):
 @app.post("/api/courses/{course_id}/students/{student_id}/chat")
 def chat(course_id: str, student_id: str, body: ChatBody) -> dict:
     db = course(course_id)
-    reply = tutor.respond(db, index_for(course_id, db), course_id, student_id, body.message.strip()[:2000],
-                          language=body.language, allow_outside=body.allow_outside)
+    message = body.message.strip()[:2000]
+    try:
+        reply = tutor.respond(db, index_for(course_id, db), course_id, student_id, message,
+                              language=body.language, allow_outside=body.allow_outside)
+    except (LLMError, ReplayMiss):
+        if settings.llm_api_key:
+            raise
+        # No key: a question the repository holds an answer for (the suggested ones) is answered
+        # from the cache, as a standalone question. Anything else still says a key is needed.
+        reply = tutor.respond(db, index_for(course_id, db), course_id, student_id, message, language=body.language,
+                              allow_outside=body.allow_outside, personalise=False, record=False, understand=False)
     return {k: v for k, v in reply.items() if k != "contexts"}
 
 

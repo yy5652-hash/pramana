@@ -77,18 +77,26 @@ and rendered pages. The first lesson film also downloads the narrator's voice (1
 ```bash
 git clone https://github.com/yy5652-hash/pramana && cd pramana
 make setup                      # virtual environment and dependencies
-cp .env.example .env            # then put an API key in LLM_API_KEY (see below)
 make fetch                      # downloads the open course files, about 470 MB
-make ingest                     # builds the knowledge base and the concept map
-make bank                       # generates and verifies the question bank
-make serve                      # http://127.0.0.1:8000
+make course                     # builds the sample course from the committed caches, about 2 minutes
+make serve                      # open http://127.0.0.1:8000
 ```
 
-**Without an API key.** The repository includes the cached replies of every model call
-used to build the sample course and to run the evaluation, plus the speech transcripts.
-`make replay` rebuilds the knowledge base, the question bank and every evaluation result
-from those caches without touching the network (after `make fetch`). The live tutor needs a
-key, because a new question is a new request.
+**No API key needed to try it.** The repository includes the cached replies of every model
+call used to build the sample course, plus the speech transcripts, so `make course` builds
+the knowledge base, the concept map and the question bank without a key or a network call.
+In the app, the suggested tutor questions, practice with checked questions, a new student's
+lesson films, progress, the course map and the evidence page all work without one.
+
+**With a key, ask anything.** To ask your own questions, put a free Gemini key from
+[Google AI Studio](https://aistudio.google.com/apikey) in `.env` (`cp .env.example .env`,
+then `LLM_API_KEY=...`) and restart `make serve`. `make replay` also reruns the whole
+evaluation from the caches.
+
+**Without make** (for example on Windows), each step is one command inside the virtual
+environment: `uv venv --python 3.12 .venv`, `uv pip install -e ".[eval,dev]"`, then
+`pramana fetch mechanics`, `pramana ingest mechanics`, `pramana bank mechanics` and
+`pramana serve`.
 
 **Any OpenAI-compatible endpoint works.** Set `LLM_BASE_URL` and `LLM_API_KEY` in `.env`.
 The default is Google's Gemini endpoint, whose free tier is enough to build and run the

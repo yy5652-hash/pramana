@@ -2,7 +2,7 @@
 PY := .venv/bin/python
 COURSE ?= mechanics
 
-.PHONY: setup fetch ingest bank serve demo test eval replay clean-kb
+.PHONY: setup fetch ingest bank course serve demo test eval replay clean-kb
 
 setup:            ## create the virtual environment and install everything
 	uv venv --python 3.12 .venv
@@ -20,7 +20,7 @@ bank:             ## generate and verify the question bank
 serve:            ## run the web app on http://127.0.0.1:8000
 	$(PY) -m pramana.cli serve
 
-demo: fetch ingest bank serve
+demo: fetch course serve
 
 test:             ## unit tests (no model, no network)
 	$(PY) -m pytest -q
@@ -34,6 +34,9 @@ eval:             ## full evaluation; writes evaluation/results/*.json
 	$(PY) -m evaluation.lessons --course $(COURSE)
 	$(PY) -m evaluation.simulate --course $(COURSE) --students 40
 	$(PY) -m evaluation.report --course $(COURSE)
+
+course:           ## build the sample course from the committed caches (no API key, no model calls)
+	PRAMANA_LLM_MODE=replay $(MAKE) ingest bank
 
 replay:           ## rebuild everything from the committed caches, without an API key
 	PRAMANA_LLM_MODE=replay $(MAKE) ingest bank eval
