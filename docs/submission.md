@@ -27,6 +27,12 @@ made one), says what to keep and ends on a checked question. No generated imager
 footage, and every scene opens its source. It made one for each of the 19 concepts of the
 sample course; the demo video shows one being made at 2:59.
 
+**Try it without an API key.** `git clone https://github.com/yy5652-hash/pramana && cd pramana`,
+then `make setup`, `make fetch`, `make course`, `make serve` and open http://127.0.0.1:8000.
+Every model reply the sample course needs ships in the repository, so the suggested tutor
+questions, practice, lesson films, progress and the course map all work without a key; a
+free Gemini key adds questions of your own.
+
 ## Inspiration
 
 A course says everything three times: on the board, in the textbook, on a slide. A student
