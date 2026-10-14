@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import html
 import re
+import shutil
 import time
 from pathlib import Path
 
@@ -56,6 +57,11 @@ def fetch_course(course_id: str, only: set[str] | None = None) -> list[Path]:
             paths.append(target)
             if target.exists() and target.stat().st_size > 0:
                 print(f"have   {source['id']:12s} {target.name}")
+                continue
+            shipped = settings.course_dir / course_id / "files" / source["file"]
+            if shipped.exists():  # a source whose licence allows it and whose host blocks scripted downloads
+                shutil.copyfile(shipped, target)
+                print(f"copied {source['id']:12s} {target.name} (shipped with the repository)")
                 continue
             partial = target.with_suffix(target.suffix + ".part")
             candidates = [source["url"]]

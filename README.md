@@ -183,8 +183,9 @@ demo-film/          the demo film's source: Remotion shots, the scripts that rec
 
 ## Licences and attribution
 
-Code: MIT ([LICENSE](LICENSE)). The sample course is built from openly licensed material
-that this repository does not redistribute; `make fetch` downloads it from its publishers.
+Code: MIT ([LICENSE](LICENSE)). The sample course is built from openly licensed material:
+`make fetch` downloads the textbook and the lectures from their publishers, and the four
+slide decks (CC BY 4.0) ship with the repository.
 Sources, licences and third-party software are listed in [NOTICE.md](NOTICE.md). Because the
 textbook and the lecture videos are CC BY-NC-SA, the sample course is for non-commercial
 use.

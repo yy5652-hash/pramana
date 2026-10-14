@@ -3,10 +3,12 @@
 The MIT licence in `LICENSE` covers the code in this repository. It does not cover the
 course material the sample course is built from, or the third-party software below.
 
-## Course material (not redistributed here)
+## Course material
 
-`pramana fetch mechanics` downloads these files from their publishers. The repository
-contains none of them. It does contain text derived from them (cached model transcriptions
+`pramana fetch mechanics` downloads the textbook and the lecture videos from their
+publishers. The four slide decks (CC BY 4.0) ship unchanged in `course/mechanics/files/`,
+because their host now answers scripted downloads with a browser check; the repository
+contains none of the other files. It does contain text derived from them (cached model transcriptions
 in `data/llm_cache/`, speech transcripts in `data/asr_cache/`, and the excerpts quoted in
 `evaluation/`); that derived text stays under the licence of its source.
 
